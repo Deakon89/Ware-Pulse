@@ -3,7 +3,7 @@ package com.warepulse.model;
 import javax.persistence.*;
 
 @Entity
-public class product {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,7 +13,7 @@ public class product {
     private int quantity;
     private int price;
 
-    public product() {}
+    public Product() {}
 
     public Long getId() {
         return id;
