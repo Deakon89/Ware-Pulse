@@ -2,7 +2,6 @@ package com.warepulse.service;
 
 import org.springframework.stereotype.Service;
 import com.warepulse.model.Product;
-import com.warepulse.model.product;
 import com.warepulse.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,6 +31,4 @@ public class ProductService {
     public void deleteProduct(Long id){
         productRepo.deleteById(id);
     }
-    
-
 }
