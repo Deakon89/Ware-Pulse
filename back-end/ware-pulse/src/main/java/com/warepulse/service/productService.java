@@ -31,4 +31,11 @@ public class ProductService {
     public void deleteProduct(Long id){
         productRepo.deleteById(id);
     }
+    public void updateProductQuantity(Long productId, int quantityOrdered) {
+        Product product = productRepo.findById(productId).orElse(null);
+        if (product != null) {
+            product.setQuantity(product.getQuantity() - quantityOrdered);
+            productRepo.save(product);
+        }
+    }
 }
