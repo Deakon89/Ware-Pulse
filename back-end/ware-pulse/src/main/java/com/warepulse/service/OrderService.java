@@ -9,7 +9,7 @@ import com.warepulse.repository.ComplOrderRepo;
 import com.warepulse.repository.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
+
 
 @Service
 public class OrderService {
