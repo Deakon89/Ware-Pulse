@@ -2,8 +2,10 @@ package com.warepulse.controller;
 
 import com.warepulse.model.Client;
 import com.warepulse.service.ClientService;
+import com.warepulse.service.ProductService;
 import com.warepulse.model.Order;
 import com.warepulse.model.OrderStatus;
+import com.warepulse.model.Product;
 import com.warepulse.repository.OrderRepo;
 import com.warepulse.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class OrderController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private ProductService productService;
     
     @GetMapping
     public List<Order> getAllOrders() {
@@ -45,6 +50,11 @@ public class OrderController {
         order.setClient(client);
         order.setStatus(OrderStatus.NON_EVASO);
         order.setDate(new Date());
+
+        Long productId = order.getProduct().getId();
+        Product fullProduct = productService.findById(productId)
+                            .orElseThrow(() -> new RuntimeException("Product not found"));
+        order.setProduct(fullProduct);
         Order savedOrder = orderRepo.save(order);
         return ResponseEntity.ok(savedOrder);
         //  order.setStatus(OrderStatus.NON_EVASO);

@@ -9,12 +9,12 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long productId;
+    // private Long productId;
     // private String productName;
 
-    // @ManyToOne(fetch = FetchType.EAGER)  // Se vuoi recuperare subito i dati del prodotto
-    // @JoinColumn(name = "product_id", nullable = false)
-    // private Product product;
+    @ManyToOne(fetch = FetchType.EAGER)  // Se vuoi recuperare subito i dati del prodotto
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     private int quantityOrdered;
 
@@ -38,21 +38,21 @@ public class Order {
         this.id = id;
     }
 
-     public Long getProductId() {
-         return productId;
+     public Product getProduct() {
+         return product;
      }
 
-     public void setProductId(Long productId) {
-         this.productId = productId;
+     public void setProduct(Product product) {
+         this.product = product;
      }
 
-    // public String getProductName() {
-    //     return productName;
+    //  public String getProductName(){
+    //     return product.getName();
     // }
 
-    // public void setProductName(String productName) {
-    //     this.productName = productName;
-    // }
+    //  public void setProduct(Product product) {
+    //      this.product = product;
+    //  }
 
     public int getQuantityOrdered() {
         return quantityOrdered;

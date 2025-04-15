@@ -31,15 +31,15 @@ public class OrderService {
         if(order.getStatus() == OrderStatus.EVASO){
             throw new RuntimeException("Order already completed");
         }
-    productService.updateProductQuantity(order.getProductId(), order.getQuantityOrdered());
+    productService.updateProductQuantity(order.getProduct().getId(), order.getQuantityOrdered());
         
         // Aggiorna lo stato dell'ordine
         order.setStatus(OrderStatus.EVASO);
         
         // Crea l'oggetto CompletedOrder copiando le informazioni
         CompletedOrder completedOrder = new CompletedOrder();
-        completedOrder.setProductId(order.getProductId());
-        // completedOrder.setProductName(order.getProductName());
+        completedOrder.setProductId(order.getProduct().getId());
+        completedOrder.setProductName(order.getProduct().getName());
         completedOrder.setQuantityOrdered(order.getQuantityOrdered());
         completedOrder.setDate(order.getDate());
         completedOrder.setClient(order.getClient());
