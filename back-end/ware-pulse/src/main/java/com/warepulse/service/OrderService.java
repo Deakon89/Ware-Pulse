@@ -39,7 +39,7 @@ public class OrderService {
         // Crea l'oggetto CompletedOrder copiando le informazioni
         CompletedOrder completedOrder = new CompletedOrder();
         completedOrder.setProductId(order.getProductId());
-        completedOrder.setProductName(order.getProductName());
+        // completedOrder.setProductName(order.getProductName());
         completedOrder.setQuantityOrdered(order.getQuantityOrdered());
         completedOrder.setDate(order.getDate());
         completedOrder.setClient(order.getClient());

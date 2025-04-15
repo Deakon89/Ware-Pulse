@@ -10,7 +10,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long productId;
-    private String productName;
+    // private String productName;
+
+    // @ManyToOne(fetch = FetchType.EAGER)  // Se vuoi recuperare subito i dati del prodotto
+    // @JoinColumn(name = "product_id", nullable = false)
+    // private Product product;
+
     private int quantityOrdered;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -19,8 +24,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
     private Client client;
 
     public Order() {}
@@ -33,21 +38,21 @@ public class Order {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
+     public Long getProductId() {
+         return productId;
+     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+     public void setProductId(Long productId) {
+         this.productId = productId;
+     }
 
-    public String getProductName() {
-        return productName;
-    }
+    // public String getProductName() {
+    //     return productName;
+    // }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
+    // public void setProductName(String productName) {
+    //     this.productName = productName;
+    // }
 
     public int getQuantityOrdered() {
         return quantityOrdered;
@@ -80,5 +85,9 @@ public class Order {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    // public String getProductName() {
+    //     return product != null ? product.getName() : null;
+    // }
 
 }

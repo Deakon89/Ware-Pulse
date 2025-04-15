@@ -13,10 +13,6 @@ public class Client {
 
     public Client() {}
 
-    // public Client(String nomeAttività) {
-    //     this.nomeAttività = nomeAttività;
-    // }
-
     public Long getId() {    
         return id;
     }

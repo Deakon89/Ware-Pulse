@@ -13,7 +13,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/products/**","/api/orders/**").permitAll() // Lascia accessibili gli endpoint per i prodotti
+            .requestMatchers("/api/products/**", "/api/orders", "/api/orders/**", "/api/clients/**").permitAll()
+            // Lascia accessibili gli endpoint per i prodotti
                 .anyRequest().authenticated()      
             )
             .httpBasic(Customizer.withDefaults());
