@@ -14,6 +14,9 @@ public class ProductService {
     @Autowired
     private ProductRepo productRepo;
 
+    // @Autowired
+    // private EmailNotificationService emailNotificationService;
+
     // // Get all products
      public List<Product> getProducts() {
          return productRepo.findAll();
@@ -34,8 +37,16 @@ public class ProductService {
     public void updateProductQuantity(Long productId, int quantityOrdered) {
         Product product = productRepo.findById(productId).orElse(null);
         if (product != null) {
-            product.setQuantity(product.getQuantity() - quantityOrdered);
+            int newQuantity = product.getQuantity() - quantityOrdered;
+            product.setQuantity(newQuantity);
             productRepo.save(product);
+
+            // if (newQuantity <= 5) {
+            //     // Invia notifica via email
+            //     String subject = "Notifica: Quantità Prodotto";
+            //     String text = "Il prodotto " + product.getName() + " ha raggiunto una quantità di " + newQuantity + " unità.";
+            //     emailNotificationService.sendNotification("tuo_indirizzo@gmail.com", subject, text);
+            // }
         }
     }
 
