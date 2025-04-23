@@ -1,1 +1,27 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        Email è obbligatoria
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+        Inserisci un indirizzo email valido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" formControlName="password" type="password">
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        Password è obbligatoria
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('password')">
+        La password deve contenere almeno {{ loginForm.get('password') }} caratteri
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </form>
