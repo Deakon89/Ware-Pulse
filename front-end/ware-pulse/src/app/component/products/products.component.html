@@ -1,1 +1,50 @@
-<p>products works!</p>
+<div class="products">
+    <h2>Prodotti</h2>
+  
+    <button (click)="startCreate()">Nuovo Prodotto</button>
+  
+    <form [formGroup]="form" (ngSubmit)="submit()" class="product-form">
+      <div>
+        <label>Nome:</label>
+        <input formControlName="name" required />
+      </div>
+      <div>
+        <label>Descrizione:</label>
+        <input formControlName="description" />
+      </div>
+      <div>
+        <label>Prezzo:</label>
+        <input type="number" formControlName="price" required />
+      </div>
+      <div>
+        <label>Quantità:</label>
+        <input type="number" formControlName="quantity" required />
+      </div>
+      <button type="submit">{{ editing ? 'Aggiorna' : 'Crea' }}</button>
+    </form>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Quantità</th>
+          <th>Prezzo</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products">
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.quantity }}</td>
+          <td>{{ p.price | currency:'EUR' }}</td>
+          <td>
+            <button (click)="startEdit(p)">✏️</button>
+            <button (click)="delete(p.id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,1 +1,7 @@
-<p>orders works!</p>
+<h2>Ordini</h2>
+<ul>
+  <li *ngFor="let o of orders">
+    #{{o.id}} – prodotto {{o.productId}} – qtà {{o.quantityOrdered}}
+    <button (click)="complete(o.id)" *ngIf="o.status==='NON_EVASO'">Completa</button>
+  </li>
+</ul>

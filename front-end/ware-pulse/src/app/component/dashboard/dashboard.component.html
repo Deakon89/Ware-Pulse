@@ -1,23 +1,22 @@
-
-    <mat-sidenav-container class="sidebar-container">
+<div>
+  <mat-toolbar color="primary" class="sidebar-toolbar">
+        <!-- Navbar top della sidebar -->
+        <span>Menu</span>
+        <!-- In futuro aggiungere icone o bottoni qui -->
+    </mat-toolbar>
+    <mat-sidenav-container class="sidebar-container">  
       <mat-sidenav mode="side" opened class="sidebar">
-        <mat-toolbar color="primary" class="sidebar-toolbar">
-          <!-- Navbar top della sidebar -->
-          <span>Menu</span>
-          <!-- In futuro aggiungere icone o bottoni qui -->
-        </mat-toolbar>
-        <mat-nav-list>
-          <!-- Qui verranno inseriti i comandi/menu items -->
-           <!-- <app-products></app-products>
-           <app-orders></app-orders>
-           <app-clients></app-clients>
-           <app-complited-orders></app-complited-orders> -->
-          <ng-content></ng-content>
+        <mat-nav-list role="list">
+          <a mat-list-item role="listitem" routerLink="products">Product</a>
+          <a mat-list-item role="listitem" routerLink="clients">Clients</a>
+          <a mat-list-item role="listitem" routerLink="orders">Orders</a>
+          <a mat-list-item role="listitem" routerLink="complited-orders">Complited Orders</a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content class="content">
-        <!-- Contenuto principale dell'app -->
-        <ng-content select="[main]"></ng-content>
+       
+       <router-outlet></router-outlet>
+        
       </mat-sidenav-content>
     </mat-sidenav-container>
-  
+</div>  
