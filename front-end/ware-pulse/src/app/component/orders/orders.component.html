@@ -1,7 +1,65 @@
-<h2>Ordini</h2>
+<!-- <h2>Ordini</h2>
 <ul>
   <li *ngFor="let o of orders">
-    #{{o.id}} – prodotto {{o.productId}} – qtà {{o.quantityOrdered}}
+    #{{o.id}} – prodotto= {{o.product.name}} – qtà= {{o.quantityOrdered}} – data= {{o.date | date:'short'}} – stato= {{o.status}} – cliente= {{o.client['nomeAttività']}} 
     <button (click)="complete(o.id)" *ngIf="o.status==='NON_EVASO'">Completa</button>
   </li>
-</ul>
+</ul> -->
+<mat-card class="orders-card">
+  <mat-card-header>
+    <mat-card-title>Ordini</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="orders" class="mat-elevation-z8 orders-table">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let o">{{ o.id }}</td>
+      </ng-container>
+
+      <!-- Prodotto Column -->
+      <ng-container matColumnDef="product">
+        <th mat-header-cell *matHeaderCellDef>Prodotto</th>
+        <td mat-cell *matCellDef="let o">{{ o.product.name }}</td>
+      </ng-container>
+
+      <!-- Quantità Column -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantità</th>
+        <td mat-cell *matCellDef="let o">{{ o.quantityOrdered }}</td>
+      </ng-container>
+
+      <!-- Data Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="let o">{{ o.date | date:'short' }}</td>
+      </ng-container>
+
+      <!-- Stato Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Stato</th>
+        <td mat-cell *matCellDef="let o">{{ o.status }}</td>
+      </ng-container>
+
+      <!-- Cliente Column -->
+      <ng-container matColumnDef="client">
+        <th mat-header-cell *matHeaderCellDef>Cliente</th>
+        <td mat-cell *matCellDef="let o">{{ o.client['nomeAttività'] }}</td>
+      </ng-container>
+
+      <!-- Azioni Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Azioni</th>
+        <td mat-cell *matCellDef="let o">
+          <button mat-icon-button color="primary" (click)="complete(o.id)" *ngIf="o.status === 'NON_EVASO'">
+            <mat-icon>done</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

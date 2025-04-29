@@ -1,1 +1,59 @@
-<p>complited-orders works!</p>
+<!-- <h2>Ordini Evas​i</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Prodotto</th><th>Quantità</th><th>Data</th><th>Cliente</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let o of orders">
+      <td>{{ o.id }}</td>
+      <td>{{ o.productName }}</td>
+      <td>{{ o.quantityOrdered }}</td>
+      <td>{{ o.date | date:'short' }}</td>
+      <td>{{ o.client['nomeAttività'] }}</td>
+    </tr>
+  </tbody>
+</table> -->
+<mat-card class="completed-orders-card">
+  <mat-card-header>
+    <mat-card-title>Ordini Evasi</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="orders" class="mat-elevation-z8 completed-orders-table">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let o">{{ o.id }}</td>
+      </ng-container>
+
+      <!-- Prodotto Column -->
+      <ng-container matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef>Prodotto</th>
+        <td mat-cell *matCellDef="let o">{{ o.productName }}</td>
+      </ng-container>
+
+      <!-- Quantità Column -->
+      <ng-container matColumnDef="quantityOrdered">
+        <th mat-header-cell *matHeaderCellDef>Quantità</th>
+        <td mat-cell *matCellDef="let o">{{ o.quantityOrdered }}</td>
+      </ng-container>
+
+      <!-- Data Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="let o">{{ o.date | date:'short' }}</td>
+      </ng-container>
+
+      <!-- Cliente Column -->
+      <ng-container matColumnDef="client">
+        <th mat-header-cell *matHeaderCellDef>Cliente</th>
+        <td mat-cell *matCellDef="let o">{{ o.client['nomeAttività'] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

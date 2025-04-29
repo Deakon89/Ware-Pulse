@@ -5,15 +5,21 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-products',
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule 
+    MatButtonModule,
+    MatTableModule,
+    MatIconModule
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
@@ -23,6 +29,7 @@ export class ProductsComponent implements OnInit {
   form!: FormGroup;
   editing: boolean = false;
   editId: number | null = null;
+  displayedColumns: string[] = ['id', 'name', 'quantity', 'price', 'actions'];
 
   constructor(
     private productsService: ProductsService,
@@ -85,4 +92,5 @@ export class ProductsComponent implements OnInit {
       .subscribe(() => this.loadAll());
   }
 }
+
 

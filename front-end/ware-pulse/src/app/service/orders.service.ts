@@ -4,11 +4,20 @@ import { Observable } from 'rxjs';
 
 export interface Order {
   id: number;
-  productId: number;
+  product: {
+    id: number;
+    name: string;
+    description?: string;
+    quantity: number;
+    price: number;
+  };
   quantityOrdered: number;
   date?: string;
   status?: 'NON_EVASO' | 'EVASO';
-  clientId: number;
+  client: {
+    id: number;
+    'nomeAttività': string;
+  };
 }
 
 @Injectable({
