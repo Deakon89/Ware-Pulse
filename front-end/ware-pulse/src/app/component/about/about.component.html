@@ -1,1 +1,17 @@
-<p>about works!</p>
+<div class="about-container">
+    <mat-card class="about-card">
+      <h2>We Are</h2>
+      <p> 
+        facimm ampress
+      </p>
+  
+      <h3>Our Team</h3>
+      <div class="team">
+        <div class="member" *ngFor="let member of teamMembers">
+          <img [src]="member.avatar" alt="{{member.name}}">
+          <h4>{{ member.name }}</h4>
+          <p>{{ member.role }}</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>

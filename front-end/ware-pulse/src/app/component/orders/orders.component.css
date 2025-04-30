@@ -1,17 +1,10 @@
-/* .orders-card { 
- max-height: fit-content;
- } */
-    /* .order-details {
-      display: flex;
-      flex-direction: column;
-      max-height: fit-content;
-      flex: 1;
-      gap: 4px;
-    }
-    .complete-btn {
-      margin-left: auto;
-    }
-
-    mat-card-content {
-      max-height: fit-content;
-    } */
+.orders-card { margin: 16px; }
+.orders-table { width: 100%; }
+.order-form { margin-bottom: 16px; }
+.form-fields { 
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    align-items: end;
+ }
+.orders-table { width: 100%; }

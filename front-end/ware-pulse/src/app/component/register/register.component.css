@@ -1,0 +1,6 @@
+.register-card { max-width: 500px; margin: 24px auto; padding: 16px; }
+.register-form { display: flex; flex-direction: column; gap: 16px; }
+.name-fields, .password-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.full-width { width: 100%; }
+.photo-upload { display: flex; align-items: center; gap: 16px; }
+.preview img { max-height: 100px; border-radius: 4px; }

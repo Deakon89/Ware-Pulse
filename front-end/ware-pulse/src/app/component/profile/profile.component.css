@@ -1,0 +1,81 @@
+.profile-container {
+    width: 400px;
+    margin: 3rem auto;
+  }
+  
+  mat-card {
+    padding: 2rem;
+    text-align: center;
+    background-color: #fafafae7;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 12px;
+  }
+  
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-header h2 {
+    margin: 0.5rem 0;
+    font-size: 1.8rem;
+    color: rgb(216, 2, 249);
+  }
+  
+  .profile-header p {
+    color: #444;
+  }
+  
+  .profile-details {
+    margin: 1.5rem 0;
+    text-align: left;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .profile-details mat-icon {
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    color: #80ff00;
+  }
+  
+  button {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 500px) {
+    .profile-container {
+      width: 300px;
+      margin: 3rem auto;
+    }
+
+    mat-card {
+     padding: 1rem;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+     
+    }
+    .profile-header h2 {
+      font-size: 1rem;
+    }
+
+    .profile-header p {
+      font-size: 0.8rem;
+    }
+  
+    .profile-details {
+      font-size: 0.8rem;
+      color: #444;
+    }
+     
+    button {
+      width: 50%;
+    }
+   }
