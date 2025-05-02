@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotificationService } from '../../service/notification.service';
+import { interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -19,13 +22,15 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
+  private notified = new Set<number>();
   form!: FormGroup;
   editing: boolean = false;
   editId: number | null = null;
@@ -33,11 +38,27 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notifSvc: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.loadAll();
+    // this.notifSvc.requestPermission();
+    // interval(30_000).pipe(
+    //   switchMap(() => this.productsService.list())
+    // ).subscribe(products => {
+    //   products
+    //     .filter(p => p.quantity >= 5 && !this.notified.has(p.id))
+    //     .forEach(p => {
+    //       this.notifSvc.showBrowserNotification(
+    //         'Scorta alta',
+    //         { body: `${p.name} ha ${p.quantity} unità in magazzino` }
+    //       );
+    //       this.notifSvc.showToast(`Scorta di ${p.name} ≥ 5`);
+    //       this.notified.add(p.id);
+    //     });
+    // });
     // inizializza form per create/update
     this.form = this.fb.group({
       name: [''],

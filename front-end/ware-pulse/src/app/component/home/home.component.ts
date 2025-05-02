@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { NotificationService } from '../../service/notification.service';
 // import { routeAnimations } from '../../route-animation';
 
 
@@ -19,8 +20,10 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 })
 // main page
 export class HomeComponent {
- 
+  show = false;
   menuActive: boolean = false;
+
+  constructor(public svc: NotificationService){}
   prepareRoute(outlet: RouterOutlet) {
     return outlet?.activatedRouteData?.['animation'];
   }
@@ -37,4 +40,6 @@ export class HomeComponent {
   hasChildRoute(outlet: RouterOutlet): boolean {
     return outlet.isActivated;
   }
+
+ 
 }

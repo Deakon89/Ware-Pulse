@@ -14,8 +14,10 @@ public class ProductService {
     @Autowired
     private ProductRepo productRepo;
 
-    // @Autowired
-    // private EmailNotificationService emailNotificationService;
+    @Autowired
+    private NotificationService notificationService;
+
+    
 
     // // Get all products
      public List<Product> getProducts() {
@@ -47,6 +49,15 @@ public class ProductService {
             //     String text = "Il prodotto " + product.getName() + " ha raggiunto una quantità di " + newQuantity + " unità.";
             //     emailNotificationService.sendNotification("tuo_indirizzo@gmail.com", subject, text);
             // }
+            if (product.getQuantity() >= 5) {
+                notificationService.publish(
+                    "Attenzione: il prodotto \"" 
+                    + product.getName() 
+                    + "\" ha quantità = " 
+                    + product.getQuantity()
+                );
+            }
+              
         }
     }
 

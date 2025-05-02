@@ -1,0 +1,11 @@
+<div class="notifications-panel">
+    <h3>Notifiche</h3>
+    <ul>
+      <li *ngFor="let n of svc.notifications()">
+        <span>{{ n.message }}</span>
+        <small>{{ n.timestamp | date:'short' }}</small>
+        <button (click)="onDelete(n.id)">✖</button>
+      </li>
+    </ul>
+    <p *ngIf="svc.notifications().length === 0">Nessuna notifica</p>
+  </div>

@@ -9,6 +9,7 @@ import { ProductsComponent } from './component/products/products.component';
 import { OrdersComponent } from './component/orders/orders.component';
 import { ClientsComponent } from './component/clients/clients.component';
 import { ComplitedOrdersComponent } from './component/complited-orders/complited-orders.component';
+import { NotificationsComponent } from './component/notifications/notifications.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, children: [
@@ -16,6 +17,7 @@ export const routes: Routes = [
         { path: 'login', component: LoginComponent },
         { path: 'register', component: RegisterComponent },
         { path: 'profile', component: ProfileComponent},
+        { path: 'notifications', component: NotificationsComponent},
         { path: 'dashboard', component: DashboardComponent, children: [
             { path: '', redirectTo:'products', pathMatch:'full'},
             { path: 'products', component: ProductsComponent},

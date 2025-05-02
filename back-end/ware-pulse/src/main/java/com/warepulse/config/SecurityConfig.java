@@ -11,9 +11,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http
+            .cors(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/products/**", "/api/orders", "/api/orders/**", "/api/clients/**", "/api/completed-orders").permitAll()
+            .requestMatchers(
+"/api/products/**",
+            "/api/orders",
+            "/api/orders/**",
+            "/api/clients/**",
+            "/api/completed-orders",
+            "/api/notifications/**"
+            ).permitAll()
             // Lascia accessibili gli endpoint per i prodotti
                 .anyRequest().authenticated()      
             )
