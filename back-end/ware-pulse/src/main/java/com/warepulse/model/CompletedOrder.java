@@ -21,6 +21,10 @@ public class CompletedOrder {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
     
     public CompletedOrder() {}
 
@@ -70,5 +74,13 @@ public class CompletedOrder {
 
     public void setClient(Client client){    
         this.client = client;
+    }
+
+    public User getOwner(){
+        return owner;
+    }
+
+    public void setOwner(User owner){
+        this.owner = owner;
     }
 }

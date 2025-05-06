@@ -14,6 +14,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)  // Se vuoi recuperare subito i dati del prodotto
     @JoinColumn(name = "product_id", nullable = false)
+   
     private Product product;
 
     private int quantityOrdered;
@@ -27,9 +28,12 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private Client client;
+    
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     public Order() {}
-
     public Long getId(){
         return id;
     }
@@ -86,8 +90,17 @@ public class Order {
         this.client = client;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     // public String getProductName() {
     //     return product != null ? product.getName() : null;
     // }
+
 
 }

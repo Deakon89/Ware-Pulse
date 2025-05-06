@@ -7,12 +7,17 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    
     private Long id;
     private String name;
     private String description;
     private int quantity;
     private int price;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+    
     public Product() {}
 
     public Long getId() {
@@ -45,4 +50,11 @@ public class Product {
     public void setPrice(double price) {
         this.price = (int) price;
     }
+
+    public User getOwner() {
+        return owner;
+    }
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }   
 }
