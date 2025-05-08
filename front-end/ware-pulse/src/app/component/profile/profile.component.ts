@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { Profile } from '../../model/profile';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,30 +13,37 @@ import { Router } from '@angular/router';
   imports: [
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-
-  constructor(private router: Router) {}
+export class ProfileComponent implements OnInit {
+  user?: Profile;
+  constructor(private router: Router, private authService: AuthService) {}
+  ngOnInit(): void {
+    this.authService.getProfile().subscribe({
+      next: profile => this.user = profile,
+      error: ()      => this.router.navigate(['/login'])
+    });
+  }
   
   // example data
-  user = {
-    username: 'Admin',
-    bio: 'Frontend Developer | Angular Enthusiast 🚀',
-    email: 'Start2Impact@example.com',
-    location: 'Rieti, Italia',
-    avatarUrl: 'https://i.pravatar.cc/300' 
-  };
+  // user = {
+  //   username: 'Admin',
+  //   bio: 'Frontend Developer | Angular Enthusiast 🚀',
+  //   email: 'Start2Impact@example.com',
+  //   location: 'Rieti, Italia',
+  //   avatarUrl: 'https://i.pravatar.cc/300' 
+  // };
 
   goToDash() {
-    window.location.href = '/dashboard';
+    this.router.navigate(['/dashboard']);
   }
 
   logout() {
-    // this.authService.logout();
+    this.authService.logout();
     this.router.navigate(['/']); 
   }
 }

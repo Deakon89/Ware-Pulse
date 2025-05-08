@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Profile } from '../model/profile';
 
 export interface RegisterPayload {
   username: string;
@@ -20,4 +21,21 @@ export class AuthService {
       payload
     );
   }
+
+  login(payload: { username:string, password:string }): Observable<{token:string}> {
+    return this.http.post<{token:string}>(`${this.apiUrl}/login`, payload);
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('jwt');
+  }
+
+  getProfile(): Observable<Profile> {
+    return this.http.get<Profile>(`${this.apiUrl}/me`);
+  }
+
+  logout() {
+    localStorage.removeItem('jwt');
+  
+}
 }

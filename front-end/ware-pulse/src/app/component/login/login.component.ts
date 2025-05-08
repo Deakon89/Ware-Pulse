@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,19 +23,29 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Form Value', this.loginForm.value);
-      // TODO: integrate with authentication service
-    }
-  }
+  //   if (this.loginForm.valid) {
+  //     console.log('Form Value', this.loginForm.value);
+  //     // TODO: integrate with authentication service
+  //   }
+  // }
+    if (this.loginForm.invalid) return;
+      this.authService.login(this.loginForm.value).subscribe({
+      next: ({token}) => {
+      localStorage.setItem('jwt', token);
+      this.router.navigate(['/profile']);
+    },
+    error: err => console.error('Login fallito', err)
+  });
+}
+
 }

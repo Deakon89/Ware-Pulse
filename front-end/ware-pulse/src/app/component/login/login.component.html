@@ -1,12 +1,12 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Email" formControlName="email">
-      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
-        Email è obbligatoria
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" formControlName="username">
+      <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+        Username è obbligatorio
       </mat-error>
-      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
-        Inserisci un indirizzo email valido
+      <mat-error *ngIf="loginForm.get('username')?.hasError('username')">
+        Inserisci un Username valido
       </mat-error>
     </mat-form-field>
 

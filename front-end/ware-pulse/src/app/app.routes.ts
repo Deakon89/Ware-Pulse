@@ -10,15 +10,16 @@ import { OrdersComponent } from './component/orders/orders.component';
 import { ClientsComponent } from './component/clients/clients.component';
 import { ComplitedOrdersComponent } from './component/complited-orders/complited-orders.component';
 import { NotificationsComponent } from './component/notifications/notifications.component';
+import { authGuard } from './Auth/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, children: [
         { path: 'about', component: AboutComponent },
         { path: 'login', component: LoginComponent },
         { path: 'register', component: RegisterComponent },
-        { path: 'profile', component: ProfileComponent},
+        { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
         { path: 'notifications', component: NotificationsComponent},
-        { path: 'dashboard', component: DashboardComponent, children: [
+        { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard], children: [
             { path: '', redirectTo:'products', pathMatch:'full'},
             { path: 'products', component: ProductsComponent},
             { path: 'orders', component: OrdersComponent},
