@@ -22,15 +22,15 @@ import com.warepulse.security.JwtFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomUserDetailService userDetailService;
-    private final PasswordConfig passwordConfig;
+     private final CustomUserDetailService userDetailService;
+     private final PasswordConfig passwordConfig;
     
 
-    public SecurityConfig(CustomUserDetailService uds, PasswordConfig pwc) {
-        this.userDetailService = uds;
-        this.passwordConfig = pwc;
+     public SecurityConfig(CustomUserDetailService uds, PasswordConfig pwc) {
+         this.userDetailService = uds;
+         this.passwordConfig = pwc;
      
-    }
+     }
 
 //   @Bean
 //   public AuthenticationManager authenticationManager(
@@ -51,12 +51,12 @@ public AuthenticationManager authenticationManager(HttpSecurity http,
     .build();
 }
 
-  @Autowired
-     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-         auth
-           .userDetailsService(userDetailService)
-           .passwordEncoder(passwordConfig.passwordEncoder());
-     }
+//   @Autowired
+//      public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//          auth
+//            .userDetailsService(userDetailService)
+//            .passwordEncoder(passwordConfig.passwordEncoder());
+//      }
 
     @Autowired
     private JwtFilter jwtFilter;    
@@ -67,8 +67,9 @@ public AuthenticationManager authenticationManager(HttpSecurity http,
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/api/auth/me").authenticated()
             .requestMatchers(
-    "/api/products/**",
+                "/api/products/**",
                 "/api/orders",
                 "/api/orders/**",
                 "/api/clients/**",
@@ -78,7 +79,7 @@ public AuthenticationManager authenticationManager(HttpSecurity http,
                 "/api/users/**",
                 "/api/auth/**",
                 "/api/auth/register",
-                "/api/auth/me"
+                "/api/auth/login"
                 ).permitAll()
                 .anyRequest().authenticated()      
             )

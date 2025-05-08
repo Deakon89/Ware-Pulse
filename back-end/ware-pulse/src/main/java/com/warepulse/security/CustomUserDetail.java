@@ -2,8 +2,9 @@
 package com.warepulse.security;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,8 +23,7 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // per ora nessun ruolo, restituisco lista vuota
-        return Collections.emptyList();
+    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

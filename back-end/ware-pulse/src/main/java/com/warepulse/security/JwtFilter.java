@@ -31,8 +31,8 @@ public class JwtFilter extends OncePerRequestFilter {
                                   FilterChain chain)
       throws ServletException, IOException {
     String authHeader = req.getHeader("Authorization");
-    if (authHeader != null && authHeader.startsWith("Bearer ")) {
-      String token = authHeader.substring(7);
+      if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        String token = authHeader.substring(7);
       if (jwtUtil.validateToken(token)) {
         String user = jwtUtil.extractUsername(token);
         var userDetails = userDetailsService.loadUserByUsername(user);
