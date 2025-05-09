@@ -2,6 +2,8 @@ package com.warepulse.service;
 
 import com.warepulse.model.Notification;
 import com.warepulse.repository.NotificationRepo;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -69,6 +71,13 @@ public class NotificationService {
 
         return emitter;
     }
+
+    public String currentUsername() {
+    return SecurityContextHolder
+              .getContext()
+              .getAuthentication()
+              .getName();
+}
 }
 
 

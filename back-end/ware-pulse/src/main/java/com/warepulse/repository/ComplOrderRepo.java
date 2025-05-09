@@ -9,5 +9,5 @@ import com.warepulse.model.CompletedOrder;
 
 @Repository
 public interface ComplOrderRepo extends JpaRepository<CompletedOrder, Long> {
-    List<CompletedOrder> findByClientOwnerUsername(String username);
+    List<CompletedOrder> findByOwnerUsername(String username);
 }

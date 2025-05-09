@@ -2,9 +2,11 @@ package com.warepulse.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.warepulse.model.CompletedOrder;
 import com.warepulse.repository.ComplOrderRepo;
+import com.warepulse.security.SecurityService;
 
 import java.util.List;
 
@@ -13,9 +15,12 @@ public class ComplOrderService {
     
     @Autowired
     private ComplOrderRepo compOrderRepo;
+    @Autowired 
+    private SecurityService securityService;
     
     public List<CompletedOrder> findAllCompletedOrders() {
-        return compOrderRepo.findAll();
+        String me = securityService.currentUsername();
+        return compOrderRepo.findByOwnerUsername(me);
     }
 
     public CompletedOrder findCompletedOrderById(Long id) {
@@ -25,4 +30,11 @@ public class ComplOrderService {
     public void deleteCompletedOrder(Long id) {
         compOrderRepo.deleteById(id);
     }
+
+    public String currentUsername() {
+    return SecurityContextHolder
+              .getContext()
+              .getAuthentication()
+              .getName();
+}
 }

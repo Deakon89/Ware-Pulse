@@ -12,7 +12,7 @@ public class Notification {
     private String message;
     private Instant timestamp;
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
     // getter / setter
     public Long getId() { return id; }

@@ -7,10 +7,12 @@ import com.warepulse.model.Order;
 import com.warepulse.model.OrderStatus;
 import com.warepulse.repository.ComplOrderRepo;
 import com.warepulse.repository.OrderRepo;
+import com.warepulse.security.SecurityService;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -26,8 +28,12 @@ public class OrderService {
     @Autowired
     private ProductService productService;
 
-    public List<Order> findByClientOwnerUsername(String username) {
-        return orderRepo.findByClientOwnerUsername(username);
+    @Autowired 
+    private SecurityService securityService;
+
+    public List<Order> findByOwnerUsername(String username) {
+        String me = securityService.currentUsername();
+        return orderRepo.findByOwnerUsername(me);
     }
 
     @Transactional
@@ -57,5 +63,14 @@ public class OrderService {
         // Rimuove l'ordine dalla tabella degli ordini attivi
         orderRepo.delete(order);
     }
+
+    public String currentUsername() {
+    return SecurityContextHolder
+              .getContext()
+              .getAuthentication()
+              .getName();
+}
+
+   
     
 }

@@ -23,7 +23,7 @@ public class CompletedOrder {
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
     
     public CompletedOrder() {}

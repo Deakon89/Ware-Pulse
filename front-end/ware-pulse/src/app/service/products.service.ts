@@ -14,7 +14,7 @@ export interface Product {
   providedIn: 'root'
 })
 export class ProductsService {
-  private path = 'products';
+  private path = 'dashboard/products';
 
   constructor(private api: ApiService) {}
 

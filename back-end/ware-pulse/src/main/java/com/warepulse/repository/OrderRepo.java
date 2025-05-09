@@ -9,5 +9,5 @@ import com.warepulse.model.Order;
 
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Long> {
-    List<Order> findByClientOwnerUsername(String username);
+    List<Order> findByOwnerUsername(String username);
 }

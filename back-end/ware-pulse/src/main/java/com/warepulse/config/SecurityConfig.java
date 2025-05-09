@@ -3,7 +3,7 @@ package com.warepulse.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -69,6 +69,7 @@ public AuthenticationManager authenticationManager(HttpSecurity http,
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .requestMatchers("/api/auth/me").authenticated()
             .requestMatchers(
                 "/api/products/**",
@@ -81,7 +82,8 @@ public AuthenticationManager authenticationManager(HttpSecurity http,
                 "/api/users/**",
                 "/api/auth/**",
                 "/api/auth/register",
-                "/api/auth/login"
+                "/api/auth/login",
+                "/api/dashboard/**"
                 ).permitAll()
                 .anyRequest().authenticated()      
             )

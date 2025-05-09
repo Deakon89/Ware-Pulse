@@ -3,7 +3,11 @@ package com.warepulse.service;
 import org.springframework.stereotype.Service;
 import com.warepulse.model.Product;
 import com.warepulse.repository.ProductRepo;
+import com.warepulse.security.SecurityService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -17,15 +21,23 @@ public class ProductService {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private SecurityService securityService;
     
-    public List<Product> findByClientOwnerUsername(String username) {
-        return productRepo.findByOwnerUsername(username);
-    }
+    // public List<Product> findByClientOwnerUsername() {
+    //     String me = currentUsername();
+    //     return productRepo.findByOwnerUsername(me);
+    // }
     
     // // Get all products
-     public List<Product> getProducts() {
-         return productRepo.findAll();
-     }
+
+    public List<Product> getProducts() {
+        return productRepo.findAll();
+    }
+     public List<Product> findMyProducts() {
+        String me = securityService.currentUsername();
+        return productRepo.findByOwnerUsername(me);
+    }
     // // product by id
      public Optional<Product> getProductById(Long id) {
          Optional<Product> product = productRepo.findById(id);
@@ -67,4 +79,11 @@ public class ProductService {
     public Optional<Product> findById(Long id) {
         return productRepo.findById(id);
     }
+
+    public String currentUsername() {
+    return SecurityContextHolder
+              .getContext()
+              .getAuthentication()
+              .getName();
+}
 }
