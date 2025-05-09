@@ -18,7 +18,10 @@ public class ProductService {
     private NotificationService notificationService;
 
     
-
+    public List<Product> findByClientOwnerUsername(String username) {
+        return productRepo.findByOwnerUsername(username);
+    }
+    
     // // Get all products
      public List<Product> getProducts() {
          return productRepo.findAll();

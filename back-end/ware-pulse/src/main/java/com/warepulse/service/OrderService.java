@@ -7,6 +7,9 @@ import com.warepulse.model.Order;
 import com.warepulse.model.OrderStatus;
 import com.warepulse.repository.ComplOrderRepo;
 import com.warepulse.repository.OrderRepo;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,10 @@ public class OrderService {
     @Autowired
     private ProductService productService;
 
+    public List<Order> findByClientOwnerUsername(String username) {
+        return orderRepo.findByClientOwnerUsername(username);
+    }
+
     @Transactional
     public void completeOrder(Long orderId){
         Order order = orderRepo.findById(orderId)
@@ -31,7 +38,7 @@ public class OrderService {
         if(order.getStatus() == OrderStatus.EVASO){
             throw new RuntimeException("Order already completed");
         }
-    productService.updateProductQuantity(order.getProduct().getId(), order.getQuantityOrdered());
+        productService.updateProductQuantity(order.getProduct().getId(), order.getQuantityOrdered());
         
         // Aggiorna lo stato dell'ordine
         order.setStatus(OrderStatus.EVASO);

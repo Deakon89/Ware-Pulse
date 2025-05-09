@@ -22,8 +22,10 @@ import com.warepulse.security.JwtFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-     private final CustomUserDetailService userDetailService;
-     private final PasswordConfig passwordConfig;
+     @SuppressWarnings("unused")
+    private final CustomUserDetailService userDetailService;
+     @SuppressWarnings("unused")
+    private final PasswordConfig passwordConfig;
     
 
      public SecurityConfig(CustomUserDetailService uds, PasswordConfig pwc) {

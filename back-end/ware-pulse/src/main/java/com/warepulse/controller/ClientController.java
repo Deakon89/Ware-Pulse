@@ -19,7 +19,7 @@ public class ClientController {
 
     @GetMapping
     public List<Client> getAllClients() {
-        return clientService.findAllClients();
+         return clientService.findAllClients();
     }
 
     @GetMapping("/{id}")

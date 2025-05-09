@@ -1,5 +1,7 @@
 package com.warepulse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +14,8 @@ public class Client {
 
     private String nomeAttività;
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
+    @JsonIgnore
     private User owner;
     
     public Client() {}

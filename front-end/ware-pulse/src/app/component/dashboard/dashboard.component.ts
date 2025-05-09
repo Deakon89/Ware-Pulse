@@ -5,6 +5,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { DashboardService } from '../../service/dashboard.service';
+import { Product } from '../../service/products.service';
+import { Order } from '../../service/orders.service';
 
 
 
@@ -24,6 +27,12 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
+  products: Product[] = [];
+  orders: Order[] = [];
+  constructor(private dash: DashboardService){}
+  ngOnInit(){
+    this.dash.getProducts().subscribe(ps => this.products = ps);
+    this.dash.getOrders().subscribe(os => this.orders = os);
+  }
 }
 
