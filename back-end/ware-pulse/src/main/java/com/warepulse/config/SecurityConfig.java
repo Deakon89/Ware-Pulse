@@ -1,6 +1,5 @@
 package com.warepulse.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,82 +14,94 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.warepulse.security.CustomUserDetailService;
+import com.warepulse.security.JwtUtil;
 import com.warepulse.security.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-     @SuppressWarnings("unused")
-    private final CustomUserDetailService userDetailService;
-     @SuppressWarnings("unused")
-    private final PasswordConfig passwordConfig;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtFilter jwtFilter;
     
 
-     public SecurityConfig(CustomUserDetailService uds, PasswordConfig pwc) {
-         this.userDetailService = uds;
-         this.passwordConfig = pwc;
-     
-     }
+    public SecurityConfig(UserDetailsService uds,
+                          PasswordEncoder pwEncoder,
+                          JwtFilter jwtFilter
+                          ) {
+        this.userDetailsService = uds;
+        this.passwordEncoder   = pwEncoder;
+        this.jwtFilter         = jwtFilter;
+       
 
-//   @Bean
-//   public AuthenticationManager authenticationManager(
-//       AuthenticationConfiguration authConfig
-//   ) throws Exception {
-//     return authConfig.getAuthenticationManager();
-//   }
+        
+    }
 
-@SuppressWarnings("removal")
-@Bean
-public AuthenticationManager authenticationManager(HttpSecurity http, 
-    PasswordEncoder passwordEncoder, UserDetailsService uds) throws Exception {
-  return http
-    .getSharedObject(AuthenticationManagerBuilder.class)
-    .userDetailsService(uds)
-    .passwordEncoder(passwordEncoder)
-    .and()
-    .build();
-}
+    /**
+     * 1️⃣ AuthenticationManager: serve a Spring Security per
+     * validare username/password.
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder auth = 
+            http.getSharedObject(AuthenticationManagerBuilder.class);
+        auth.userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder);
+        return auth.build();
+    }
 
-//   @Autowired
-//      public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//          auth
-//            .userDetailsService(userDetailService)
-//            .passwordEncoder(passwordConfig.passwordEncoder());
-//      }
+   
 
-    @Autowired
-    private JwtFilter jwtFilter;    
-
+    /**
+     * 2️⃣ SecurityFilterChain: qui si configura
+     *    - CORS / CSRF
+     *    - stateless JWT (no session HTTP)
+     *    - quali endpoint sono pubblici, quali protetti
+     *    - inserimento del JwtFilter
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(Customizer.withDefaults())
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
+          // abilitare CORS e disabilitare CSRF (usiamo token)
+          .cors(Customizer.withDefaults())
+          .csrf(csrf -> csrf.disable())
+
+          // JWT è stateless: niente sessione server
+          .sessionManagement(sess -> sess
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+          // regole di accesso
+          .authorizeHttpRequests(auth -> auth
+
+            // sempre per pre-flight CORS
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .requestMatchers("/api/auth/me").authenticated()
-            .requestMatchers(
-                "/api/products/**",
-                "/api/orders",
-                "/api/orders/**",
-                "/api/clients/**",
-                "/api/completed-orders",
-                "/api/notifications/**",
-                "/api/users",
-                "/api/users/**",
-                "/api/auth/**",
-                "/api/auth/register",
-                "/api/auth/login",
-                "/api/dashboard/**"
-                ).permitAll()
-                .anyRequest().authenticated()      
-            )
-            // .httpBasic(Customizer.withDefaults());
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-            return http.build();
+
+            // endpoint di registrazione e login APERTI
+            .requestMatchers("/api/auth/register", "/api/auth/login")
+              .permitAll()
+
+            // info “me” richiedono token
+            .requestMatchers("/api/auth/me")
+              .authenticated()
+
+            // dashboard e API CRUD private
+            .requestMatchers("/api/dashboard/**",
+                             "/api/products/**",
+                             "/api/orders/**",
+                             "/api/clients/**",
+                             "/api/completed-orders/**",
+                             "/api/notifications/**")
+              .authenticated()
+
+            // blocca tutto il resto
+            .anyRequest().denyAll()
+          )
+
+          // infila il filtro JWT prima di UsernamePasswordAuthentication
+          .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+          ;
+
+        return http.build();
     }
 }
-

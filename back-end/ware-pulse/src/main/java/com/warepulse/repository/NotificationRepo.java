@@ -1,8 +1,9 @@
 package com.warepulse.repository;
 
 
-import com.warepulse.model.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.warepulse.model.Notification;
 
 import java.util.List;
 

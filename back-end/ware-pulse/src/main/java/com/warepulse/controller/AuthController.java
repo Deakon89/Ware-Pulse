@@ -1,92 +1,72 @@
+// src/main/java/com/warepulse/controller/AuthController.java
 package com.warepulse.controller;
 
-import java.util.Map;
-import java.util.Optional;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 
-import com.warepulse.dto.RegisterRequest;
-import com.warepulse.model.User;
+import com.warepulse.security.CustomUserDetailService;
 import com.warepulse.security.JwtUtil;
 import com.warepulse.service.UserService;
+
+import org.springframework.http.ResponseEntity;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final UserService userService;
-    private final AuthenticationManager authManager;
-    private final JwtUtil jwtUtil;
+  private final AuthenticationManager authManager;
+  private final UserService         userService;
+  private final JwtUtil             jwtUtil;
+  private final CustomUserDetailService uds;
 
-    public AuthController(UserService us, AuthenticationManager authManager, JwtUtil jwtUtil) {
-        this.userService = us;
-        this.authManager = authManager;
-        this.jwtUtil = jwtUtil;
-    }
+  public AuthController(AuthenticationManager am,
+                        UserService us,
+                        JwtUtil ju,
+                        CustomUserDetailService uds) {
+    this.authManager = am;
+    this.userService = us;
+    this.jwtUtil     = ju;
+    this.uds         = uds;
+  }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
-        User created = userService.register(req.getUsername(), req.getPassword(), req.getEmail());
-        // non ritorniamo la passwordHash
-        return ResponseEntity
-            .status(201)
-            .body("{ \"id\": " + created.getId() + ", \"username\": \"" + created.getUsername() + "\" }");
-    }
+  @PostMapping("/register")
+  public ResponseEntity<?> register(@RequestBody Map<String,String> b) {
+    var user = userService.register(
+                 b.get("username"),
+                 b.get("password"),
+                 b.get("email")
+               );
+    return ResponseEntity.ok(Map.of(
+      "id", user.getId(),
+      "username", user.getUsername(),
+      "email", user.getEmail()
+    ));
+  }
 
-    @PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody Map<String,String> creds) {
-  try {
-    Authentication auth = authManager.authenticate(
+  @PostMapping("/login")
+  public ResponseEntity<?> login(@RequestBody Map<String,String> b) {
+    authManager.authenticate(
       new UsernamePasswordAuthenticationToken(
-        creds.get("username"),
-        creds.get("password")
+        b.get("username"),
+        b.get("password")
       )
     );
-    String token = jwtUtil.generateToken(auth.getName());
+    String token = jwtUtil.generateToken(b.get("username"));
     return ResponseEntity.ok(Map.of("token", token));
-  } catch (AuthenticationException ex) {
-    // credenziali non valide → 401 Unauthorized
-    return ResponseEntity
-      .status(HttpStatus.UNAUTHORIZED)
-      .body(Map.of("error", "Invalid credentials"));
+  }
+
+  @GetMapping("/me")
+  public ResponseEntity<?> me() {
+    UserDetails ud = (UserDetails)
+      SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return ResponseEntity.ok(Map.of(
+      "username", ud.getUsername(),
+      "authorities", ud.getAuthorities()
+    ));
   }
 }
 
-    // @PostMapping("/login")
-    // public ResponseEntity<?> login(@RequestBody Map<String,String> creds) {
-    //   var auth = authManager.authenticate(
-    //     new UsernamePasswordAuthenticationToken(
-    //       creds.get("username"), creds.get("password")
-    //     )
-    //   );
-    //   String token = jwtUtil.generateToken(auth.getName());
-    //   return ResponseEntity.ok(Map.of("token", token));
-    // }
-
-    @GetMapping("/me")
-//       public ResponseEntity<?> me(Authentication authentication) {
-//     // authentication.getName() è lo username estratto dal JWT
-//       User user = userService.findByUsername(authentication.getName());
-//       if (user == null) {
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//     }
-//     // Maschera la password
-//       user.setPassword(null);
-//       return ResponseEntity.ok(user);
-// }
-      public ResponseEntity<?> me(Authentication authentication) {
-      Optional<User> opt = userService.findByUsername(authentication.getName());
-      if (opt.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-      }
-      User user = opt.get();
-      user.setPassword(null);
-      return ResponseEntity.ok(user);
-    }
-}

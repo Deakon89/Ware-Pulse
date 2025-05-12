@@ -1,44 +1,52 @@
-// src/main/java/com/warepulse/security/JwtUtil.java
 package com.warepulse.security;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    
-    private final Key secret = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    
-    private final long expirationMs = 3600_000;
 
+    @Value("${jwt.secret}")
+    private String secretKey;
+
+    @Value("${jwt.expiration}")
+    private long validityMs;
+
+    // Genera un token per lo username
     public String generateToken(String username) {
         Date now = new Date();
         return Jwts.builder()
-            .setSubject(username)
-            .setIssuedAt(now)
-            .setExpiration(new Date(now.getTime() + expirationMs))
-            .signWith(secret)
-            .compact();
+                   .setSubject(username)
+                   .setIssuedAt(now)
+                   .setExpiration(new Date(now.getTime() + validityMs))
+                   .signWith(SignatureAlgorithm.HS256, secretKey)
+                   .compact();
     }
 
+    // Estrae lo username dal token
     public String extractUsername(String token) {
-        return Jwts.parserBuilder()
-            .setSigningKey(secret)
-            .build()
-            .parseClaimsJws(token)
-            .getBody()
-            .getSubject();
+        return Jwts.parser()
+                   .setSigningKey(secretKey)
+                   .parseClaimsJws(token)
+                   .getBody()
+                   .getSubject();
     }
 
+    // Controlla firma e scadenza
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);
+            Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token);
             return true;
-        } catch (JwtException | IllegalArgumentException ex) {
+        } catch (JwtException e) {
+            // include MalformedJwtException, SignatureException, ExpiredJwtException...
+            return false;
+        } catch (IllegalArgumentException e) {
+            // token null o vuoto
             return false;
         }
     }
