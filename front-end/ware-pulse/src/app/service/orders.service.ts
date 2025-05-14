@@ -1,50 +1,91 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
+import { ApiService }  from './api.service';
+import { Observable }  from 'rxjs';
 
 export interface Order {
   id: number;
-  product: {
-    id: number;
-    name: string;
-    description?: string;
-    quantity: number;
-    price: number;
-  };
+  product: { id: number; name: string; };
   quantityOrdered: number;
-  date?: string;
-  status?: 'NON_EVASO' | 'EVASO';
-  client: {
-    id: number;
-    'nomeAttività': string;
-  };
+  date: string;
+  status: string;
+  client: { id: number; nomeAttività: string; };
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class OrdersService {
   private path = 'orders';
-
   constructor(private api: ApiService) {}
 
   list(): Observable<Order[]> {
     return this.api.get<Order[]>(this.path);
   }
-
   get(id: number): Observable<Order> {
     return this.api.get<Order>(`${this.path}/${id}`);
   }
-
-  create(order: Partial<Order>): Observable<Order> {
-    return this.api.post<Order>(this.path, order);
+  create(o: Partial<Order>): Observable<Order> {
+    return this.api.post<Order>(this.path, o);
   }
-
-  complete(id: number): Observable<void> {
-    return this.api.post<void>(`${this.path}/${id}/complete`, null);
+  update(id: number, o: Partial<Order>): Observable<Order> {
+    return this.api.put<Order>(`${this.path}/${id}`, o);
   }
-
   delete(id: number): Observable<void> {
     return this.api.delete<void>(`${this.path}/${id}`);
   }
+
+   complete(id: number): Observable<Order> {
+    return this.update(id, { status: 'EVASO' });
+  }
 }
+
+
+
+// import { Injectable } from '@angular/core';
+// import { ApiService } from './api.service';
+// import { Observable } from 'rxjs';
+
+// export interface Order {
+//   id: number;
+//   product: {
+//     id: number;
+//     name: string;
+//     description?: string;
+//     quantity: number;
+//     price: number;
+//   };
+//   quantityOrdered: number;
+//   date?: string;
+//   status?: 'NON_EVASO' | 'EVASO';
+//   client: {
+//     id: number;
+//     'nomeAttività': string;
+//   };
+// }
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class OrdersService {
+//   private path = 'orders';
+
+//   constructor(private api: ApiService) {}
+
+//   list(): Observable<Order[]> {
+//     return this.api.get<Order[]>(this.path);
+//   }
+
+//   get(id: number): Observable<Order> {
+//     return this.api.get<Order>(`${this.path}/${id}`);
+//   }
+
+//   create(order: Partial<Order>): Observable<Order> {
+//     return this.api.post<Order>(this.path, order);
+//   }
+
+//   complete(id: number): Observable<void> {
+//     return this.api.post<void>(`${this.path}/${id}/complete`, null);
+//   }
+
+//   delete(id: number): Observable<void> {
+//     return this.api.delete<void>(`${this.path}/${id}`);
+//   }
+// }

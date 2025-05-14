@@ -46,7 +46,13 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-//     public java.util.List<String> getRoles() {
-//         return roles;
-//     }
+    public List<String> getRoles() {
+         return roles;
+     }
+     
+      public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+
  }

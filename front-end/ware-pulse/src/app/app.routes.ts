@@ -8,7 +8,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ProductsComponent } from './component/products/products.component';
 import { OrdersComponent } from './component/orders/orders.component';
 import { ClientsComponent } from './component/clients/clients.component';
-import { ComplitedOrdersComponent } from './component/complited-orders/complited-orders.component';
+import { CompletedOrdersComponent } from './component/completed-orders/completed-orders.component';
 import { NotificationsComponent } from './component/notifications/notifications.component';
 import { authGuard } from './Auth/auth.guard';
 
@@ -24,7 +24,7 @@ export const routes: Routes = [
             { path: 'products', component: ProductsComponent},
             { path: 'orders', component: OrdersComponent},
             { path: 'clients', component: ClientsComponent},
-            { path: 'complited-orders', component: ComplitedOrdersComponent},
+            { path: 'complited-orders', component: CompletedOrdersComponent},
         ]},
     ] },
 ];

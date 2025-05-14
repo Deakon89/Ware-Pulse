@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComplitedOrdersComponent } from './complited-orders.component';
+import { ComplitedOrdersComponent } from './completed-orders.component';
 
 describe('ComplitedOrdersComponent', () => {
   let component: ComplitedOrdersComponent;

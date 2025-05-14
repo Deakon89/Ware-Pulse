@@ -1,6 +1,6 @@
 import { Client } from './clientMod';
 
-export interface ComplitedOrder {
+export interface CompletedOrder {
   id: number;
   productId: number;
   productName: string;

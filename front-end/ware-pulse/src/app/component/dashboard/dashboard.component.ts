@@ -1,38 +1,156 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+// src/app/component/dashboard/dashboard.component.ts
+import { Component, OnInit }          from '@angular/core';
+import { CommonModule }               from '@angular/common';
+import { MatCardModule }              from '@angular/material/card';
+import { MatListModule }              from '@angular/material/list';
+import { MatButtonModule }            from '@angular/material/button';
+import { switchMap }                  from 'rxjs/operators';
+import { Client }                     from '../../model/clientMod';
+import { ClientService}      from '../../service/clients.service';
+import { ProductsService, Product }   from '../../service/products.service';
+import { OrdersService, Order }       from '../../service/orders.service';
+import { CompletedOrdersService} from '../../service/completed-order.service';
+import { CompletedOrder } from '../../model/completed-orderMod';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { DashboardService } from '../../service/dashboard.service';
-import { Product } from '../../service/products.service';
-import { Order } from '../../service/orders.service';
-
-
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 @Component({
-  selector: 'app-sidebar',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule,
+     CommonModule,
     MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    RouterOutlet,
-    RouterModule
+     MatIconModule,
+     MatListModule,
+     RouterOutlet,
+     RouterModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  clients: Client[] = [];
   products: Product[] = [];
   orders: Order[] = [];
-  constructor(private dash: DashboardService){}
-  ngOnInit(){
-    this.dash.getProducts().subscribe(ps => this.products = ps);
-    this.dash.getOrders().subscribe(os => this.orders = os);
+  completedOrders: CompletedOrder[] = [];
+
+  constructor(
+    private clientService: ClientService,
+    private productsService: ProductsService,
+    private ordersService: OrdersService,
+    private completedOrdersService: CompletedOrdersService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadClients();
+    this.loadProducts();
+    this.loadOrders();
+    this.loadCompletedOrders();
+  }
+
+  loadClients() {
+    this.clientService.getAll()
+      .subscribe(cl => this.clients = cl);
+  }
+
+  loadProducts() {
+    this.productsService.list()
+      .subscribe(p => this.products = p);
+  }
+
+  loadOrders() {
+    this.ordersService.list()
+      .subscribe(o => this.orders = o);
+  }
+
+  loadCompletedOrders() {
+    this.completedOrdersService.list()
+      .subscribe((c: CompletedOrder[]) => this.completedOrders = c);
+  }
+
+  deleteClient(id: number) {
+    this.clientService.delete(id)
+      .subscribe(() => this.loadClients());
+  }
+
+  deleteProduct(id: number) {
+    this.productsService.delete(id)
+      .subscribe(() => this.loadProducts());
+  }
+
+  deleteOrder(id: number) {
+    this.ordersService.delete(id)
+      .subscribe(() => this.loadOrders());
+  }
+
+  completeOrder(id: number) {
+    const o = this.orders.find(x => x.id === id);
+    if (!o) return;
+
+    // prepara il completed-order
+    const co: Partial<CompletedOrder> = {
+      productId:    o.product.id,
+      productName:  o.product.name,
+      quantityOrdered: o.quantityOrdered,
+      date:         o.date,
+      client:       o.client
+    };
+
+    // elimina ordine + crea completed
+    this.ordersService.delete(id).pipe(
+      switchMap(() => this.completedOrdersService.create(co))
+    ).subscribe(() => {
+      this.loadOrders();
+      this.loadCompletedOrders();
+    });
+  }
+
+  deleteCompletedOrder(id: number) {
+    this.completedOrdersService.delete(id)
+      .subscribe(() => this.loadCompletedOrders());
   }
 }
+
+// import { Component } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatIconModule } from '@angular/material/icon';
+// import { MatListModule } from '@angular/material/list';
+// import { RouterModule, RouterOutlet } from '@angular/router';
+// import { DashboardService } from '../../service/dashboard.service';
+// import { Product } from '../../service/products.service';
+// import { Order } from '../../service/orders.service';
+// import { CompletedOrder } from '../../model/completed-orderMod';
+
+
+
+// @Component({
+//   selector: 'app-sidebar',
+//   standalone: true,
+//   imports: [
+//     CommonModule,
+//     MatSidenavModule,
+//     MatToolbarModule,
+//     MatIconModule,
+//     MatListModule,
+//     RouterOutlet,
+//     RouterModule
+//   ],
+//   templateUrl: './dashboard.component.html',
+//   styleUrls: ['./dashboard.component.css']
+// })
+// export class DashboardComponent {
+//   products: Product[] = [];
+//   orders: Order[] = [];
+//   constructor(private dash: DashboardService){}
+//   ngOnInit(){
+//     this.dash.getProducts().subscribe(ps => this.products = ps);
+//     this.dash.getOrders().subscribe(os => this.orders = os);
+//   }
+
+ 
+
+
+// }
 

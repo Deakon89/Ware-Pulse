@@ -14,17 +14,36 @@ public class CustomUserDetailService implements UserDetailsService {
         this.repo = repo;
     }
 
+    // @Override
+    // public UserDetails loadUserByUsername(String username)
+    //         throws UsernameNotFoundException {
+    //     User u = repo.findByUsername(username)
+    //                  .orElseThrow(() -> 
+    //                    new UsernameNotFoundException("User not found"));
+    //     return org.springframework.security.core.userdetails.User
+    //              .withUsername(u.getUsername())
+    //              .password(u.getPassword())
+    //              .authorities("USER")      // o ruoli a piacere
+    //              .build();
+    // }
+
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-        User u = repo.findByUsername(username)
-                     .orElseThrow(() -> 
-                       new UsernameNotFoundException("User not found"));
-        return org.springframework.security.core.userdetails.User
-                 .withUsername(u.getUsername())
-                 .password(u.getPassword())
-                 .authorities("USER")      // o ruoli a piacere
-                 .build();
-    }
+public UserDetails loadUserByUsername(String username)
+        throws UsernameNotFoundException {
+    User u = repo.findByUsername(username)
+                 .orElseThrow(() -> 
+                   new UsernameNotFoundException("User not found"));
+
+    return org.springframework.security.core.userdetails.User
+             .withUsername(u.getUsername())
+             .password(u.getPassword())
+             .authorities(
+                 u.getRoles().stream()
+                     .map(r -> "ROLE_" + r) // 🔥 importante!
+                     .toArray(String[]::new)
+             )
+             .build();
+}
+
 }
 

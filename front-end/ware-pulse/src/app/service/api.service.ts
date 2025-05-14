@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 // import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { Order } from './orders.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,7 @@ export class ApiService {
   delete<T>(path: string): Observable<T> {
     return this.http.delete<T>(`${this.base}/${path}`);
   }
+  complete(id: number): Observable<Order> {
+  return this.http.post<Order>(`${this.base}/${id}/complete`, {});
+}
 }

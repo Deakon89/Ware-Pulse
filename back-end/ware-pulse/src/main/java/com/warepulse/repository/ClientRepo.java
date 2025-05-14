@@ -9,5 +9,5 @@ import com.warepulse.model.Client;
 
 @Repository
 public interface ClientRepo extends JpaRepository<Client, Long> {
-    List<Client> findByOwnerId(Long ownerId);
+    List<Client> findByOwnerUsername(String username);
 }

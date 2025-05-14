@@ -14,10 +14,10 @@ public class Product {
     private int quantity;
     private int price;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="owner_id", nullable=false)
     private User owner;
-    
+
     public Product() {}
 
     public Long getId() {
@@ -56,5 +56,7 @@ public class Product {
     }
     public void setOwner(User owner) {
         this.owner = owner;
-    }   
+    } 
+    
+    
 }

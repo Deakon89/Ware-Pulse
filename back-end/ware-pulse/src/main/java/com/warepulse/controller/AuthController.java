@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import com.warepulse.model.User;
 import com.warepulse.security.CustomUserDetailService;
 import com.warepulse.security.JwtUtil;
 import com.warepulse.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -35,7 +37,7 @@ public class AuthController {
 
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody Map<String,String> b) {
-    var user = userService.register(
+    User user  = userService.register(
                  b.get("username"),
                  b.get("password"),
                  b.get("email")
