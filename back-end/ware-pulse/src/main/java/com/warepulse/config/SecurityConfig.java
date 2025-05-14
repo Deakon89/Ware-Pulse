@@ -55,7 +55,6 @@ public class SecurityConfig {
         cfg.setAllowedOrigins(List.of("http://localhost:4200")); // il tuo front-end
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
-        cfg.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cfg);
         return source;

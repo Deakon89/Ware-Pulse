@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.warepulse.model.Client;
+import com.warepulse.model.User;
 
 @Repository
 public interface ClientRepo extends JpaRepository<Client, Long> {
-    List<Client> findByOwnerUsername(String username);
+    List<Client> findByOwner(User owner);
 }

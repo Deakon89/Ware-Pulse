@@ -13,9 +13,8 @@ public class Client {
     private Long id;
 
     private String nomeAttività;
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="owner_id", nullable=false)
     private User owner;
     
     public Client() {}

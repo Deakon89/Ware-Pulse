@@ -14,4 +14,12 @@ export class DashboardService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('/api/dashboard/products');
   }
+
+  getClient(): Observable<any> {
+    return this.http.get<any>('/api/dashboard/clients');
+  }
+
+  getCompletedOrders(): Observable<any> {
+    return this.http.get<any>('/api/dashboard/completed-orders');
+  }
 }

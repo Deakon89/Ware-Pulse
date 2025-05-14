@@ -2,6 +2,7 @@
 package com.warepulse.service;
 
 import com.warepulse.model.Client;
+import com.warepulse.model.User;
 import com.warepulse.repository.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,8 @@ public class ClientService {
     }
 
     /** Recupera solo i clienti appartenenti allo user indicato. */
-    public List<Client> findByOwnerUsername(String username) {
-        return clientRepo.findByOwnerUsername(username);
+    public List<Client> findByOwner(User owner) {
+        return clientRepo.findByOwner(owner);
     }
 }
 

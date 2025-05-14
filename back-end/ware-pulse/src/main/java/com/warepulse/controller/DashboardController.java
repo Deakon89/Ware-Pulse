@@ -45,8 +45,20 @@ public class DashboardController {
 
     @GetMapping("/clients")
     public List<Client> myClients(Authentication auth) {
-        String username = auth.getName();
-        return clientService.findByOwnerUsername(username);
+         User username = userService.findByUsername(auth.getName());
+        return clientService.findByOwner(username);
+    }
+
+    @PostMapping("/clients")
+    public Client create(@RequestBody Client client, Authentication auth) {
+    User user = userService.findByUsername(auth.getName());
+    client.setOwner(user);
+    return clientService.save(client);
+    }
+
+    @DeleteMapping("/clients/{id}")
+    public void deleteClient(@PathVariable Long id) {
+        clientService.delete(id);
     }
 
     @GetMapping("/products")

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Profile } from '../model/profile';
 
 export interface RegisterPayload {
@@ -30,9 +30,13 @@ export class AuthService {
     return !!localStorage.getItem('jwt');
   }
 
-  getProfile(): Observable<Profile> {
-    return this.http.get<Profile>(`${this.apiUrl}/me`);
+ getProfile(): Observable<Profile> {
+  const token = localStorage.getItem('jwt');
+  if (!token) {
+    return throwError(() => new Error('Utente non autenticato'));
   }
+  return this.http.get<Profile>(`${this.apiUrl}/me`);
+}
 
   logout() {
     localStorage.removeItem('jwt');

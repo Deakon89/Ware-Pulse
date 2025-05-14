@@ -6,7 +6,7 @@ import { Client }         from '../model/clientMod';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
-  private readonly url = '/api/clients';
+  private readonly url = '/api/dashboard/clients';
 
   constructor(private http: HttpClient) {}
 
