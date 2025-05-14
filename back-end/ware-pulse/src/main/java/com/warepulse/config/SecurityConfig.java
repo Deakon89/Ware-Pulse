@@ -74,10 +74,10 @@ public class SecurityConfig {
               .requestMatchers("/api/auth/me").authenticated()
               .requestMatchers(
                   "/api/dashboard/**",
-                  "/api/products/**",
-                  "/api/orders/**",
-                  "/api/clients/**",
-                  "/api/completed-orders/**",
+                //   "/api/products/**",
+                //   "/api/orders/**",
+                //   "/api/clients/**",
+                //   "/api/completed-orders/**",
                   "/api/notifications/**",
                   "/api/users/**"
               ).hasAnyRole("USER") 

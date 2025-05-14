@@ -13,6 +13,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { ProductsService } from '../../service/products.service';
+import { ClientService } from '../../service/clients.service';
 
 @Component({
   selector: 'app-orders',
@@ -42,7 +44,7 @@ export class OrdersComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'product', 'quantity', 'date', 'status', 'client', 'actions'];
 
-  constructor(private ordersService: OrdersService, private fb: FormBuilder) {}
+  constructor(private ordersService: OrdersService, private fb: FormBuilder,private productsService: ProductsService, private clientService: ClientService) {}
 
   ngOnInit() {
     this.products= [];
@@ -53,6 +55,9 @@ export class OrdersComponent implements OnInit {
       quantityOrdered: [1, [Validators.required, Validators.min(1)]],
       date: [new Date(), Validators.required]
     })
+    this.productsService.list().subscribe(p => this.products = p);
+    this.clientService.getAll().subscribe(c => this.clients = c);
+    
     this.refresh();
   }
 
@@ -67,16 +72,19 @@ export class OrdersComponent implements OnInit {
   createOrder(): void {
     if (this.orderForm.valid) {
       const formValue = this.orderForm.value;
-      const newOrder = {
-        id: this.orders.length ? Math.max(...this.orders.map(o => o.id)) + 1 : 1,
+      const newOrder = { 
         product: formValue.product,
         client: formValue.client,
         quantityOrdered: formValue.quantityOrdered,
         date: formValue.date,
         status: 'NON_EVASO'
       };
-      this.orders.push(newOrder as Order);
+      // this.orders.push(newOrder as Order);
+      this.ordersService.create(newOrder).subscribe(() => {
+        console.log(newOrder);
+      this.refresh();
       this.orderForm.reset({ quantityOrdered: 1, date: new Date() });
+    });
     }
   }
 

@@ -1,5 +1,6 @@
 package com.warepulse.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import jakarta.persistence.*;
 
@@ -22,7 +23,7 @@ public class CompletedOrder {
     @JoinColumn(name = "user_id")
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
     

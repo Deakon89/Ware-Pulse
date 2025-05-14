@@ -1,6 +1,7 @@
 // src/main/java/com/warepulse/service/OrderService.java
 package com.warepulse.service;
 
+import com.warepulse.model.User;
 import com.warepulse.model.Order;
 import com.warepulse.repository.OrderRepo;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class OrderService {
     }
 
     // Solo gli ordini del mio utente (Dashboard)
-    public List<Order> findByClientOwnerUsername(String username) {
-        return orderRepo.findByOwnerUsername(username);
+    public List<Order> findByOwner(User owner) {
+        return orderRepo.findByOwner(owner);
     }
 }
 

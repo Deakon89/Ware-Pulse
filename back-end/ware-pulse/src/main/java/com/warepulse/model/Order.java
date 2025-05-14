@@ -14,7 +14,6 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)  // Se vuoi recuperare subito i dati del prodotto
     @JoinColumn(name = "product_id", nullable = false)
-   
     private Product product;
 
     private int quantityOrdered;
@@ -29,7 +28,7 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private Client client;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 

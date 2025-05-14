@@ -2,6 +2,7 @@
 package com.warepulse.service;
 
 import com.warepulse.model.CompletedOrder;
+import com.warepulse.model.User;
 import com.warepulse.repository.ComplOrderRepo;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,8 @@ public class CompletedOrderService {
     }
 
     // Solo i completati “miei”
-    public List<CompletedOrder> findByClientOwnerUsername(String username) {
-        return repo.findByOwnerUsername(username);
+    public List<CompletedOrder> findByOwner(User owner) {
+        return repo.findByOwner(owner);
     }
 }
 

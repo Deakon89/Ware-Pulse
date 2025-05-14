@@ -16,7 +16,7 @@ import { ApiService } from './api.service';
 //   }
 @Injectable({ providedIn: 'root' })
 export class CompletedOrdersService {
-  private path = 'completed-orders';
+  private path = 'dashboard/completed-orders';
   constructor(private api: ApiService) {}
 
   list(): Observable<CompletedOrder[]> {

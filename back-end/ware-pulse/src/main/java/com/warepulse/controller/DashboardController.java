@@ -10,6 +10,7 @@ import com.warepulse.service.UserService;
 import com.warepulse.service.OrderService;
 import com.warepulse.service.CompletedOrderService;
 import com.warepulse.model.Order;
+import com.warepulse.model.OrderStatus;
 import com.warepulse.model.CompletedOrder;
 
 
@@ -18,7 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -71,14 +75,50 @@ public class DashboardController {
 
     @GetMapping("/orders")
     public List<Order> myOrders(Authentication auth) {
-        String username = auth.getName();
-        return orderService.findByClientOwnerUsername(username);
+         User username = userService.findByUsername(auth.getName());
+        return orderService.findByOwner(username);
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<Order> createOrder(@RequestBody Order order, Authentication auth) {
+    User owner = userService.findByUsername(auth.getName());
+    order.setOwner(owner);
+    order.setStatus(OrderStatus.NON_EVASO); // opzionale, se hai un enum
+    Order saved = orderService.save(order);
+    return ResponseEntity.ok(saved);
+    }
+
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+    orderService.delete(id);
+    return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/completed-orders")
     public List<CompletedOrder> myCompleted(Authentication auth) {
-        String username = auth.getName();
-        return completedOrderService.findByClientOwnerUsername(username);
+         User username = userService.findByUsername(auth.getName());
+        return completedOrderService.findByOwner(username);
+    }
+
+    @PutMapping("/orders/{id}/complete")
+    public ResponseEntity<CompletedOrder> completeOrder(@PathVariable Long id) {
+    Optional<Order> opt = orderService.findById(id);
+    if (opt.isEmpty()) return ResponseEntity.notFound().build();
+
+    Order order = opt.get();
+
+    CompletedOrder completed = new CompletedOrder();
+    completed.setProductName(order.getProduct().getName());
+    completed.setQuantityOrdered(order.getQuantityOrdered());
+    completed.setDate(new Date());
+    completed.setClient(order.getClient());
+    completed.setOwner(order.getOwner());
+    completed.setProductName(order.getProduct().getName());
+
+    completedOrderService.save(completed);
+    orderService.delete(id);
+
+    return ResponseEntity.ok(completed);
     }
 
     @PostMapping("/products")

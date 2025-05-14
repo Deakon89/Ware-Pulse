@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.warepulse.model.Order;
+import com.warepulse.model.User;
 
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Long> {
-    List<Order> findByOwnerUsername(String username);
+    List<Order> findByOwner(User owner);
 }

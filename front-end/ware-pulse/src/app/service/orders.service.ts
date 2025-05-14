@@ -13,7 +13,7 @@ export interface Order {
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
-  private path = 'orders';
+  private path = 'dashboard/orders';
   constructor(private api: ApiService) {}
 
   list(): Observable<Order[]> {
@@ -32,9 +32,10 @@ export class OrdersService {
     return this.api.delete<void>(`${this.path}/${id}`);
   }
 
-   complete(id: number): Observable<Order> {
-    return this.update(id, { status: 'EVASO' });
-  }
+  complete(id: number): Observable<Order> {
+  return this.api.put<Order>(`${this.path}/${id}/complete`, {});
+}
+
 }
 
 
