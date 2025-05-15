@@ -45,6 +45,7 @@
       </div>
     </form>
 
+    <div class="table-container">
     <table mat-table [dataSource]="orders" class="mat-elevation-z8 orders-table">
 
       <!-- ID Column -->
@@ -100,5 +101,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  </div>
   </mat-card-content>
 </mat-card>

@@ -35,7 +35,6 @@ public class CompletedOrderService {
         repo.deleteById(id);
     }
 
-    // Solo i completati “miei”
     public List<CompletedOrder> findByOwner(User owner) {
         return repo.findByOwner(owner);
     }

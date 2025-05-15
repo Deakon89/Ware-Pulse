@@ -1,25 +1,10 @@
-<!-- <h2>Ordini Evas​i</h2>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th><th>Prodotto</th><th>Quantità</th><th>Data</th><th>Cliente</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let o of orders">
-      <td>{{ o.id }}</td>
-      <td>{{ o.productName }}</td>
-      <td>{{ o.quantityOrdered }}</td>
-      <td>{{ o.date | date:'short' }}</td>
-      <td>{{ o.client['nomeAttività'] }}</td>
-    </tr>
-  </tbody>
-</table> -->
 <mat-card class="completed-orders-card">
   <mat-card-header>
     <mat-card-title>Ordini Evasi</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+
+    <div class="table-container">
     <table mat-table [dataSource]="orders" class="mat-elevation-z8 completed-orders-table">
 
       <!-- ID Column -->
@@ -55,5 +40,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  </div>
   </mat-card-content>
 </mat-card>

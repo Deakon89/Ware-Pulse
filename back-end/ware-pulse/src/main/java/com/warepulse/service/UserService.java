@@ -23,22 +23,15 @@ public class UserService {
         return repo.findByUsername(username).orElse(null);
     }
 
-    // Registrazione: codifica la password e salva
-    // public User register(String username, String rawPassword, String email) {
-    //     User u = new User();
-    //     u.setUsername(username);
-    //     u.setEmail(email);
-    //     u.setPassword(encoder.encode(rawPassword));
-    //     return repo.save(u);
-    // }
+  
 
      public User register(String username, String rawPassword, String email) {
         User u = new User();
         u.setUsername(username);
         u.setEmail(email);
-        // ruolo di default
+       
         u.setRoles(List.of("USER"));
-        // hash della password
+      
         u.setPassword(encoder.encode(rawPassword));
         return repo.save(u);
     }

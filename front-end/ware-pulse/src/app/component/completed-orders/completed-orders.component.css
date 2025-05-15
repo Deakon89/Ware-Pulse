@@ -1,2 +1,7 @@
-.completed-orders-card { margin: 16px; }
-     .completed-orders-table { width: 100%; }
+.completed-orders-card { 
+     margin: 16px; 
+}
+
+.table-container {
+    overflow: auto;
+}

@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
   selector: 'app-complited-orders',
   imports: [CommonModule, MatCardModule, MatTableModule],
   templateUrl: './completed-orders.component.html',
+  styleUrls: ['./completed-orders.component.css']
 })
 export class CompletedOrdersComponent implements OnInit {
   orders: CompletedOrder[] = [];

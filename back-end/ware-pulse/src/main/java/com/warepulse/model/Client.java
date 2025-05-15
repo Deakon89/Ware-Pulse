@@ -1,7 +1,5 @@
 package com.warepulse.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 
 @Entity

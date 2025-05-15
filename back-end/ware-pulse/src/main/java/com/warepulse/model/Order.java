@@ -9,10 +9,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    // private Long productId;
-    // private String productName;
+    
 
-    @ManyToOne(fetch = FetchType.EAGER)  // Se vuoi recuperare subito i dati del prodotto
+    @ManyToOne(fetch = FetchType.EAGER)  
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -48,14 +47,6 @@ public class Order {
      public void setProduct(Product product) {
          this.product = product;
      }
-
-    //  public String getProductName(){
-    //     return product.getName();
-    // }
-
-    //  public void setProduct(Product product) {
-    //      this.product = product;
-    //  }
 
     public int getQuantityOrdered() {
         return quantityOrdered;
@@ -96,10 +87,5 @@ public class Order {
     public void setOwner(User owner) {
         this.owner = owner;
     }
-
-    // public String getProductName() {
-    //     return product != null ? product.getName() : null;
-    // }
-
 
 }

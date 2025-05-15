@@ -19,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +83,7 @@ public class DashboardController {
     public ResponseEntity<Order> createOrder(@RequestBody Order order, Authentication auth) {
     User owner = userService.findByUsername(auth.getName());
     order.setOwner(owner);
-    order.setStatus(OrderStatus.NON_EVASO); // opzionale, se hai un enum
+    order.setStatus(OrderStatus.NON_EVASO); 
     Order saved = orderService.save(order);
     return ResponseEntity.ok(saved);
     }
@@ -107,6 +107,14 @@ public class DashboardController {
 
     Order order = opt.get();
 
+    Product product = order.getProduct();
+    int nuovaQuantita = product.getQuantity() - order.getQuantityOrdered();
+    if (nuovaQuantita < 0) {
+        return ResponseEntity.badRequest().body(null); 
+    }
+    product.setQuantity(nuovaQuantita);
+    productService.save(product);
+
     CompletedOrder completed = new CompletedOrder();
     completed.setProductName(order.getProduct().getName());
     completed.setQuantityOrdered(order.getQuantityOrdered());
@@ -123,7 +131,7 @@ public class DashboardController {
 
     @PostMapping("/products")
     public Product createProductDashboard(@RequestBody Product p, Authentication auth) {
-    // carichi l’entità User dal DB
+    
     User me = userService.findByUsername(auth.getName());
     p.setOwner(me);
     return productService.save(p);
@@ -140,14 +148,14 @@ public class DashboardController {
                                                          Authentication auth) {
         User user = userService.findByUsername(auth.getName());
         return productService.findById(id)
-          // esiste ed è tuo?
+         
           .filter(p -> p.getOwner().equals(user))
           .map(existing -> {
             existing.setName(payload.getName());
             existing.setDescription(payload.getDescription());
             existing.setQuantity(payload.getQuantity());
             existing.setPrice(payload.getPrice());
-            // owner rimane quello esistente
+            
             Product saved = productService.save(existing);
             return ResponseEntity.ok(saved);
           })

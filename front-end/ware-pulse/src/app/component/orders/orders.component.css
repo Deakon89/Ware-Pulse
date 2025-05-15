@@ -1,5 +1,4 @@
 .orders-card { margin: 16px; }
-.orders-table { width: 100%; }
 .order-form { margin-bottom: 16px; }
 .form-fields { 
     display: grid;
@@ -7,4 +6,6 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
     align-items: end;
  }
-.orders-table { width: 100%; }
+  .table-container {
+      overflow: auto;
+    }

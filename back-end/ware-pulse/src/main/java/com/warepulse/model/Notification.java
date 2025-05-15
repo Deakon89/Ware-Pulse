@@ -14,14 +14,28 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
-    // getter / setter
-    public Long getId() { return id; }
-    public String getMessage() { return message; }
-    public Instant getTimestamp() { return timestamp; }
-    public void setMessage(String message) { this.message = message; }
-    public void setTimestamp(Instant timestamp) { this.timestamp = timestamp; }
     
-    public User getOwner() { return owner; }
-    public void setOwner(User owner) { this.owner = owner; }
+    public Long getId() { 
+        return id; 
+    }
+    public String getMessage() { 
+        return message; 
+    }
+    public Instant getTimestamp() { 
+        return timestamp;
+     }
+    public void setMessage(String message) { 
+        this.message = message;
+     }
+    public void setTimestamp(Instant timestamp) { 
+        this.timestamp = timestamp; 
+    }
+    
+    public User getOwner() { 
+        return owner;
+    }
+    public void setOwner(User owner) {
+         this.owner = owner;
+         }
 }
 

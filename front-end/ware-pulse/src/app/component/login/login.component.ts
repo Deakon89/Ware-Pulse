@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-     localStorage.removeItem('jwt'); // solo per debug!
+    localStorage.removeItem('jwt'); // solo per debug!
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -34,11 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-  //   if (this.loginForm.valid) {
-  //     console.log('Form Value', this.loginForm.value);
-  //     // TODO: integrate with authentication service
-  //   }
-  // }
+    
     if (this.loginForm.invalid) return;
       this.authService.login(this.loginForm.value).subscribe({
       next: ({token}) => {
@@ -47,6 +45,10 @@ export class LoginComponent implements OnInit {
     },
     error: err => console.error('Login fallito', err)
   });
+}
+
+redirectToRegister() {
+  this.router.navigate(['/register']);  
 }
 
 }

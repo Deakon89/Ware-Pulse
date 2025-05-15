@@ -45,6 +45,7 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
+   
     // Initialize form in constructor to avoid using fb before init
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -54,10 +55,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // No form initialization here; already done in constructor
+    
   }
 
   onSubmit(): void {
+    localStorage.removeItem('jwt');
     if (this.registerForm.invalid) {
       return;
     }
@@ -82,6 +84,10 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
+  redirectToLogin() {
+  this.router.navigate(['/login']);  
+}
 }
 
 

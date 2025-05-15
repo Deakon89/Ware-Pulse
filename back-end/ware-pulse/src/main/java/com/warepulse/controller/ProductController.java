@@ -4,7 +4,7 @@ package com.warepulse.controller;
 import com.warepulse.model.Product;
 import com.warepulse.service.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

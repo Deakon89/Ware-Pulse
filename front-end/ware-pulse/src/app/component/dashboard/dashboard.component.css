@@ -1,17 +1,52 @@
-.sidebar-container {
-    height: 100vh;
-    width: 100%;
+.content {
+  padding: 16px;
+}
+
+.notion-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-bottom: 1px solid ;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1.2rem;
+  
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+ .nav-links a {
+  margin-left: 1rem;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: rgb(216, 2, 249);
+  font-weight: 500;
+}
+
+.menu-button {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+ .menu-button {
+    display: inline-flex;
   }
-  .sidebar {
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-  }
-  .sidebar-toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  .content {
-    padding: 16px;
-  }
+
+  .nav-links {
+    display: none;
+  } 
+} 
+  

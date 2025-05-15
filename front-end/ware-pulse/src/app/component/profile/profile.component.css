@@ -63,7 +63,7 @@
      
     }
     .profile-header h2 {
-      font-size: 1rem;
+      font-size: 2rem;
     }
 
     .profile-header p {
@@ -71,11 +71,11 @@
     }
   
     .profile-details {
-      font-size: 0.8rem;
+      font-size: 1rem;
       color: #444;
     }
      
     button {
-      width: 50%;
+      width: 100%;
     }
    }

@@ -43,10 +43,10 @@ public class JwtUtil {
                 .parseClaimsJws(token);
             return true;
         } catch (JwtException e) {
-            // include MalformedJwtException, SignatureException, ExpiredJwtException...
+            
             return false;
         } catch (IllegalArgumentException e) {
-            // token null o vuoto
+           
             return false;
         }
     }

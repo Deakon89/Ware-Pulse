@@ -3,6 +3,11 @@
     margin: 2rem auto;
     padding: 1rem;
   }
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
   .full-width {
     width: 100%;
     margin-bottom: 1rem;
@@ -16,6 +21,20 @@
   }
   .spinner {
     margin-left: 0.5rem;
+  }
+
+a{
+    text-decoration: none;
+    color: black;
+    border-top: 1px solid#80ff00;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  a:hover{
+    color: #80ff00;
+    border-top: 1px solid black;
   }
 
 

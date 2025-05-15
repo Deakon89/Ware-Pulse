@@ -55,10 +55,10 @@ export class OrdersComponent implements OnInit {
       quantityOrdered: [1, [Validators.required, Validators.min(1)]],
       date: [new Date(), Validators.required]
     })
-    this.productsService.list().subscribe(p => this.products = p);
-    this.clientService.getAll().subscribe(c => this.clients = c);
-    
     this.refresh();
+    this.productsService.list().subscribe(p => this.products = p);
+    this.clientService.getAll().subscribe(c => this.clients = c); 
+    
   }
 
   refresh() {
@@ -88,8 +88,8 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  deleteOrder(id: number): void {
-    this.orders = this.orders.filter(o => o.id !== id);
-  }
+ deleteOrder(id: number): void {
+  this.ordersService.delete(id).subscribe(() => this.refresh());
+}
 
 }

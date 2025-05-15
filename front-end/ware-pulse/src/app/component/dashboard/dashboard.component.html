@@ -1,17 +1,46 @@
+<div>
+  <mat-toolbar color="primary" class="notion-navbar">
+        <span class="logo">WarePulse Dashboard</span>
 
-    <mat-sidenav-container class="sidebar-container">  
-      <mat-sidenav mode="side" opened class="sidebar">
-        <mat-nav-list role="list">
-          <a mat-list-item role="listitem" routerLink="products">Product</a>
-          <a mat-list-item role="listitem" routerLink="clients">Clients</a>
-          <a mat-list-item role="listitem" routerLink="orders">Orders</a>
-          <a mat-list-item role="listitem" routerLink="complited-orders">Complited Orders</a>
-        </mat-nav-list>
-      </mat-sidenav>
-      <mat-sidenav-content class="content">
-       
-       <router-outlet></router-outlet>
-        
+        <span class="spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" 
+                  #menuTrigger="matMenuTrigger"
+                  class="menu-button">
+                <mat-icon>menu</mat-icon>
+        </button>
+
+        <div class="nav-links">
+          <a mat-button routerLink="products" routerLinkActive="active">Products</a>
+          <a mat-button routerLink="clients" routerLinkActive="active">Clients</a>
+          <a mat-button routerLink="orders" routerLinkActive="active">Orders</a>
+          <a mat-button routerLink="complited-orders" routerLinkActive="active">Completed Orders</a>
+        </div>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="navigateAndClose('products')" routerLink="products">Products</button>
+          <button mat-menu-item (click)="navigateAndClose('clients')" routerLink="clients">Clients</button>
+          <button mat-menu-item (click)="navigateAndClose('orders')" routerLink="orders">Orders</button>
+          <button mat-menu-item (click)="navigateAndClose('complited-orders')" routerLink="complited-orders">Completed Orders</button>
+        </mat-menu>
+          
+      </mat-toolbar>
+    <mat-sidenav-container class="sidebar-container">
+      <mat-sidenav-content class="content"> 
+       <router-outlet></router-outlet>  
       </mat-sidenav-content>
     </mat-sidenav-container>
+</div>
+<!-- <mat-toolbar color="primary" class="navbar">
+  <span class="navbar-title">WarePulse Dashboard</span>
 
+  <span class="spacer"></span>
+
+  <a mat-button routerLink="products">Products</a>
+  <a mat-button routerLink="clients">Clients</a>
+  <a mat-button routerLink="orders">Orders</a>
+  <a mat-button routerLink="complited-orders">Completed Orders</a>
+</mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div> -->

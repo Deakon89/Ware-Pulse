@@ -1,5 +1,5 @@
 // src/app/component/dashboard/dashboard.component.ts
-import { Component, OnInit }          from '@angular/core';
+import { Component, OnInit, ViewChild }          from '@angular/core';
 import { CommonModule }               from '@angular/common';
 import { MatCardModule }              from '@angular/material/card';
 import { MatListModule }              from '@angular/material/list';
@@ -11,19 +11,29 @@ import { ProductsService, Product }   from '../../service/products.service';
 import { OrdersService, Order }       from '../../service/orders.service';
 import { CompletedOrdersService} from '../../service/completed-order.service';
 import { CompletedOrder } from '../../model/completed-orderMod';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
+
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-     CommonModule,
+    CommonModule,
     MatSidenavModule,
-     MatIconModule,
-     MatListModule,
-     RouterOutlet,
-     RouterModule
+    MatIconModule,
+    MatListModule,
+    RouterOutlet,
+    RouterModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule,
+    MatMenuTrigger,
+    MatMenuModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -33,12 +43,14 @@ export class DashboardComponent implements OnInit {
   products: Product[] = [];
   orders: Order[] = [];
   completedOrders: CompletedOrder[] = [];
+  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
   constructor(
     private clientService: ClientService,
     private productsService: ProductsService,
     private ordersService: OrdersService,
-    private completedOrdersService: CompletedOrdersService
+    private completedOrdersService: CompletedOrdersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -109,6 +121,11 @@ export class DashboardComponent implements OnInit {
     this.completedOrdersService.delete(id)
       .subscribe(() => this.loadCompletedOrders());
   }
+
+   navigateAndClose(route: string) {
+    this.menuTrigger.closeMenu();
+  }
+
 }
 
 // import { Component } from '@angular/core';

@@ -5,7 +5,6 @@ import com.warepulse.model.User;
 import com.warepulse.model.Order;
 import com.warepulse.repository.OrderRepo;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +12,15 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepo orderRepo;
+    private final ProductService productService;
 
-    public OrderService(OrderRepo orderRepo) {
+
+    public OrderService(OrderRepo orderRepo, ProductService productService) {
         this.orderRepo = orderRepo;
+        this.productService = productService;
     }
 
-    // Tutti gli ordini (admin)
+  
     public List<Order> findAll() {
         return orderRepo.findAll();
     }
@@ -35,7 +37,7 @@ public class OrderService {
         orderRepo.deleteById(id);
     }
 
-    // Solo gli ordini del mio utente (Dashboard)
+    
     public List<Order> findByOwner(User owner) {
         return orderRepo.findByOwner(owner);
     }

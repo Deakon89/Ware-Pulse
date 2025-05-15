@@ -1,3 +1,7 @@
+<mat-card  class="login-card">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Username</mat-label>
@@ -24,4 +28,7 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
       Login
     </button>
+    <a (click)="redirectToRegister()">↪︎sign up↪︎</a>
   </form>
+
+</mat-card>
