@@ -40,7 +40,7 @@
   display: none;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
  .menu-button {
     display: inline-flex;
   }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Profile } from '../../model/profile';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../service/auth.service';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,7 @@ import { AuthService } from '../../service/auth.service';
 })
 export class ProfileComponent implements OnInit {
   user?: Profile;
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private notificationService: NotificationService) {}
   ngOnInit(): void {
     this.authService.getProfile().subscribe({
       next: profile => this.user = profile,
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.notificationService.clear();
     this.router.navigate(['/']); 
   }
 }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { NotificationService } from '../../service/notification.service';
-// import { routeAnimations } from '../../route-animation';
+import { AuthService } from '../../service/auth.service';
 
 
 @Component({
@@ -23,7 +23,13 @@ export class HomeComponent {
   show = false;
   menuActive: boolean = false;
 
-  constructor(public svc: NotificationService){}
+  constructor(public svc: NotificationService, private notificationService: NotificationService,  public authService: AuthService){}
+
+  ngOnInit() {
+  if (this.authService.isLoggedIn()) {
+    this.notificationService.subscribeToNotifications();
+  }
+}
   prepareRoute(outlet: RouterOutlet) {
     return outlet?.activatedRouteData?.['animation'];
   }
@@ -41,5 +47,7 @@ export class HomeComponent {
     return outlet.isActivated;
   }
 
- 
+ isLoggedIn(): boolean {
+  return !!localStorage.getItem('jwt');
+}
 }

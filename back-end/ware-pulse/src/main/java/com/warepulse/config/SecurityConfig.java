@@ -70,14 +70,14 @@ public class SecurityConfig {
           .authorizeHttpRequests(auth -> auth
               .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
-              .requestMatchers("/api/auth/me").authenticated()
+              .requestMatchers("/api/auth/me","/api/notifications/stream","/api/notifications").authenticated()
               .requestMatchers(
                   "/api/dashboard/**",
                 //   "/api/products/**",
                 //   "/api/orders/**",
                 //   "/api/clients/**",
                 //   "/api/completed-orders/**",
-                  "/api/notifications/**",
+                //   "/api/notifications/**",
                   "/ws/**",
                   "/api/users/**"
               ).hasAnyRole("USER") 

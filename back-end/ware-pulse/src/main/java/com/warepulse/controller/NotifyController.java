@@ -19,9 +19,9 @@ public class NotifyController {
 
 
     @GetMapping
-    public List<Notification> all() {
-        return svc.findAll();
-    }
+    public List<Notification> userNotifications() {
+    return svc.findByCurrentUser();
+}
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

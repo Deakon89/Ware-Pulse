@@ -1,7 +1,9 @@
 package com.warepulse.service;
 
+import com.warepulse.model.User;
 import com.warepulse.model.Notification;
 import com.warepulse.repository.NotificationRepo;
+import com.warepulse.repository.UserRepo;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NotificationService {
 
     private final NotificationRepo repo;
-
+    private final UserService userService;
+    private final UserRepo userRepo;
     
     private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 
-    public NotificationService(NotificationRepo repo) {
+    public NotificationService(NotificationRepo repo, UserService userService, UserRepo userRepo) {
         this.repo = repo;
+        this.userService = userService;
+        this.userRepo = userRepo;
     }
 
    
@@ -31,9 +36,12 @@ public class NotificationService {
         Notification toSave = new Notification();
         toSave.setMessage(message);
         toSave.setTimestamp(Instant.now());
-        Notification saved = repo.save(toSave);
 
-      
+         String username = currentUsername();
+        User owner = userRepo.findByUsername(username).orElse(null);
+        toSave.setOwner(owner);
+
+        Notification saved = repo.save(toSave);
         emitters.forEach((id, emitter) -> {
             try {
                 emitter.send(
@@ -51,9 +59,13 @@ public class NotificationService {
     }
 
     
-    public List<Notification> findAll() {
-        return repo.findAllByOrderByTimestampDesc();
-    }
+public List<Notification> findByCurrentUser() {
+    String username = currentUsername();
+    User user = userRepo.findByUsername(username)
+                        .orElseThrow(); 
+    return repo.findAllByOwnerOrderByTimestampDesc(user);
+}
+
 
  
     public void delete(Long id) {

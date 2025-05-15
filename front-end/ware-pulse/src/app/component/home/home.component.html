@@ -10,7 +10,7 @@
         <!-- <app-notifications *ngIf="show"></app-notifications> -->
         <div class="nav-links" [class.active]="menuActive">
             <a (click)="closeMenu()" routerLink="/">Home</a>
-            <button (click)="closeMenu()" (click)="show = !show" routerLink="/notifications">🔔 ({{ svc.notifications().length }})</button>
+            <a *ngIf="isLoggedIn()" (click)="closeMenu()" (click)="show = !show" routerLink="/notifications">🔔 ({{ svc.notifications().length }})</a>
             <a (click)="closeMenu()" routerLink="/profile">Profile</a>
             <a (click)="closeMenu()" routerLink="/about">About us</a>
             <a (click)="closeMenu()"  target="_blank" href="https://github.com/Deakon89/Urban-Tribe.git">
