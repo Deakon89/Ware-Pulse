@@ -1,6 +1,4 @@
 .notif-card {
-  display: flex;
-  flex-direction: column;
   max-width: 600px; 
   margin: 2rem auto;
   padding: 1rem;
@@ -12,10 +10,12 @@
 mat-list-item {
   transition: background 0.3s ease;
   border-bottom: 1px solid #ddd;
-  
 }
 
-
+h4 {
+  margin-bottom: 0.5rem;
+}
+   
 mat-list-item:hover {
   background: #e8eaf6;
 }

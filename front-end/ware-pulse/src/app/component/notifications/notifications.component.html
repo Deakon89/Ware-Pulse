@@ -1,10 +1,12 @@
 <mat-card class="notif-card">
   <h2><mat-icon color="accent">notifications_active</mat-icon> Notifiche</h2>
+  
   <mat-list *ngIf="svc.notifications().length > 0; else empty">
     <mat-list-item *ngFor="let n of svc.notifications()">
-      <mat-icon matListIcon>notification_important</mat-icon>
-      <h4 matLine>{{ n.message }}</h4>
-      <p matLine class="timestamp">{{ n.timestamp | date:'short' }}</p>
+      
+      <h4 matLine><mat-icon matListIcon>notification_important</mat-icon>{{ n.message }} <button mat-icon-button color="warn" (click)="onDelete(n.id)">x</button></h4>
+      <!-- <span matLine class="timestamp">{{ n.timestamp | date:'short' }}</span> -->
+      
     </mat-list-item>
   </mat-list>
 

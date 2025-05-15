@@ -19,6 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class NotificationsComponent {
   constructor(public svc: NotificationService) {}
   onDelete(id: number) {
-    this.svc.delete(id).subscribe();
+    this.svc.delete(id);
   }
 }
