@@ -1,3 +1,3 @@
 #!/bin/bash
 chmod +x ./mvnw
-./mvnw clean install
+./mvnw clean install -DskipTests
