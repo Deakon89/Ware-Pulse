@@ -1,1 +1,1 @@
-web: cd back-end && ./mvnw spring-boot:run
+web: cd back-end/ware-pulse && ./mvnw spring-boot:run
