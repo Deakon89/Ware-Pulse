@@ -8,7 +8,7 @@ import { Order } from './orders.service';
   providedIn: 'root'
 })
 export class ApiService {
-  private base = "http://localhost:8080/api";
+  private base = "https://ware-pulse-1fa9b002251d.herokuapp.com/api";
 
   constructor(private http: HttpClient) {}
 

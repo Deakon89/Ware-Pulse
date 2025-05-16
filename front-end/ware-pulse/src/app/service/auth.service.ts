@@ -11,7 +11,7 @@ export interface RegisterPayload {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = 'https://ware-pulse-1fa9b002251d.herokuapp.com/api/auth';
 
   constructor(private http: HttpClient) {}
 
