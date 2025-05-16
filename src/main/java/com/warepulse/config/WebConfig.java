@@ -14,7 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
     registry.addMapping("/api/**")
             .allowedOrigins("https://ware-pulse.netlify.app")
             .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
-            .allowedHeaders("*");
+            .allowedHeaders("*")
+            .allowCredentials(true);
   }
 }
 
