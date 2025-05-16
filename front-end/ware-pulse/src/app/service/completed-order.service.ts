@@ -5,15 +5,7 @@ import { Observable }         from 'rxjs';
 import { CompletedOrder }     from '../model/completed-orderMod';
 import { ApiService } from './api.service';
 
-// @Injectable({ providedIn: 'root' })
-// export class ComplitedOrderService {
-//   private readonly url = 'completed-orders';
 
-//   constructor(private http: HttpClient, private api: ApiService) {}
-
-//   getAll(): Observable<ComplitedOrder[]> {
-//     return this.api.get<ComplitedOrder[]>(this.url);
-//   }
 @Injectable({ providedIn: 'root' })
 export class CompletedOrdersService {
   private path = 'dashboard/completed-orders';

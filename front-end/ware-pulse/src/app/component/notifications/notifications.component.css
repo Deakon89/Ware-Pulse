@@ -32,3 +32,14 @@ mat-list-item:hover {
   font-style: italic;
   padding: 1rem;
 }
+
+button {
+  margin-left: 0.5rem;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  color: #f44336;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}

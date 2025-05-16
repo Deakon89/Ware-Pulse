@@ -50,6 +50,7 @@ export class NotificationService {
     this.eventSource = new EventSource(`${this.api}/stream`);
     this.eventSource.onmessage = (event) => {
       const notifica = JSON.parse(event.data);
+      this.notifications.update(curr => [notifica, ...curr]); 
       this.newNotificationSubject.next(notifica); 
     };
   }

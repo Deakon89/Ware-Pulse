@@ -1,24 +1,4 @@
-<!-- <h2>Client</h2>
 
-<form (ngSubmit)="createClient()" class="mb-4 flex gap-2">
-  <input
-    [(ngModel)]="newClientName"
-    name="nomeAttività"
-    placeholder="Nome attività"
-    required
-    class="border p-2 rounded flex-grow"
-  />
-  <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
-    Crea
-  </button>
-</form>
-
-<ul>
-  <li *ngFor="let c of clients">
-    {{ c['nomeAttività'] }}
-    <button (click)="delete(c.id)">🗑️</button>
-  </li>
-</ul> -->
 <mat-card class="clients-card">
   <mat-card-header>
     <mat-card-title>Clienti</mat-card-title>

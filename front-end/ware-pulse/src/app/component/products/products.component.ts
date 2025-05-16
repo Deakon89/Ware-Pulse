@@ -44,22 +44,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAll();
-    // this.notifSvc.requestPermission();
-    // interval(30_000).pipe(
-    //   switchMap(() => this.productsService.list())
-    // ).subscribe(products => {
-    //   products
-    //     .filter(p => p.quantity >= 5 && !this.notified.has(p.id))
-    //     .forEach(p => {
-    //       this.notifSvc.showBrowserNotification(
-    //         'Scorta alta',
-    //         { body: `${p.name} ha ${p.quantity} unità in magazzino` }
-    //       );
-    //       this.notifSvc.showToast(`Scorta di ${p.name} ≥ 5`);
-    //       this.notified.add(p.id);
-    //     });
-    // });
-    // inizializza form per create/update
+    
     this.form = this.fb.group({
       name: [''],
       description: [''],

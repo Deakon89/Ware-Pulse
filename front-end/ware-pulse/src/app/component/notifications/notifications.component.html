@@ -4,7 +4,7 @@
   <mat-list *ngIf="svc.notifications().length > 0; else empty">
     <mat-list-item *ngFor="let n of svc.notifications()">
       
-      <h4 matLine><mat-icon matListIcon>notification_important</mat-icon>{{ n.message }} <button mat-icon-button color="warn" (click)="onDelete(n.id)">x</button></h4>
+      <h4 matLine><mat-icon matListIcon>notification_important</mat-icon>{{ n.message }} <button mat-icon-button (click)="onDelete(n.id)">x</button></h4>
       <!-- <span matLine class="timestamp">{{ n.timestamp | date:'short' }}</span> -->
       
     </mat-list-item>

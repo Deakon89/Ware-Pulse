@@ -11,12 +11,7 @@ import { AuthService } from '../../service/auth.service';
   imports: [RouterModule, RouterOutlet, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  // animations: [routeAnimations],
-  template: `
-  //   <div [@routeAnimations]="prepareRoute(outlet)">
-  //     <router-outlet #outlet="outlet"></router-outlet>
-  //   </div>
-  // `
+  
 })
 // main page
 export class HomeComponent {
@@ -30,9 +25,9 @@ export class HomeComponent {
     this.notificationService.subscribeToNotifications();
   }
 }
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet?.activatedRouteData?.['animation'];
-  }
+  // prepareRoute(outlet: RouterOutlet) {
+  //   return outlet?.activatedRouteData?.['animation'];
+  // }
 
   toggleMenu() {
     this.menuActive = !this.menuActive;

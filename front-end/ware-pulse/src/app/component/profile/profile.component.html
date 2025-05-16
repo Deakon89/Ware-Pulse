@@ -1,42 +1,18 @@
-<!-- <p>profile works!</p>
-<a routerLink="/dashboard" (click)="goToDash()"> go to dash</a> -->
-<!-- <div class="profile-container">
-    <mat-card>
-      <div class="profile-header">
-        <img [src]="user.avatarUrl" alt="Avatar di {{ user.username }}" class="avatar">
-        <h2>{{ user.username }}</h2>
-        <p>{{ user.bio }}</p>
-      </div>
-  
-      <div class="profile-details">
-        <p><mat-icon>email</mat-icon> {{ user.email }}</p>
-        <p><mat-icon>location_on</mat-icon> {{ user.location }}</p>
-      </div>
-  
-      <button mat-raised-button color="primary" (click)="goToDash()">
-        Users Dashboard
-      </button>
-      <button mat-raised-button color="primary" (click)="logout()">
-        Logout
-      </button>
-    </mat-card>
-  </div> -->
+
 
   <mat-card *ngIf="user" class="profile-container">
     <div class="profile-header">
-      <!-- se non hai avatarUrl sul model, rimuovi la riga sottostante -->
+      
       <img [src]="'https://i.pravatar.cc/150?u=' + user.username"
            alt="Avatar di {{ user.username }}"
            class="avatar">
       <h2>{{ user.username }}</h2>
-      <!-- se non hai bio sul model, rimuovi la riga sottostante -->
-      <!-- <p>{{ user.bio || 'Benvenuto!' }}</p> -->
+      
     </div>
   
     <div class="profile-details">
       <p><mat-icon>email</mat-icon> {{ user.email }}</p>
-      <!-- se non hai location sul model, rimuovi la riga sottostante -->
-      <!-- <p><mat-icon>location_on</mat-icon> {{ user.location || '–' }}</p> -->
+      
     </div>
   
     <button mat-raised-button color="primary" (click)="goToDash()">

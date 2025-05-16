@@ -21,14 +21,18 @@
     </nav>
     <main>    
         <ng-content class="content" *ngIf="!hasChildRoute(routerOutlet)">
-            <h1>WARE PULSE</h1>
-            <p>gestione magazzino</p>
+            <h1>WARE <em>PULSE</em></h1>
+            <p>"Effortless track,
+                 organize and manage your products inventory in real-time with
+                 our intuitive and reliable warehouse managment solution <br>
+                 Designed specificaly for small businesses looking to simplify logistics,
+                 reduce errors, and boost overall efficency with just a few clicks"</p>
             <div class="buttons">
-                <a routerLink="/login" routerLinkActive="active" class="btn btn-primary">Login</a>
-                <a routerLink="/register" class="btn btn-secondary">Sign up</a>
+                <a routerLink="/login" routerLinkActive="active" class="btn btn-primary pulse">Login</a>
+                <a routerLink="/register" class="btn btn-secondary pulse">Sign up</a>
             </div>
         </ng-content>
-        <div [@routeAnimations]="prepareRoute(outlet)">
+        <div >
             <router-outlet #routerOutlet="outlet" #outlet="outlet"></router-outlet>
         </div>
         <div class="wave"></div>

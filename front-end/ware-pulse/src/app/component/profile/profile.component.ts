@@ -30,14 +30,7 @@ export class ProfileComponent implements OnInit {
     });
   }
   
-  // example data
-  // user = {
-  //   username: 'Admin',
-  //   bio: 'Frontend Developer | Angular Enthusiast 🚀',
-  //   email: 'Start2Impact@example.com',
-  //   location: 'Rieti, Italia',
-  //   avatarUrl: 'https://i.pravatar.cc/300' 
-  // };
+  
 
   goToDash() {
     this.router.navigate(['/dashboard']);
