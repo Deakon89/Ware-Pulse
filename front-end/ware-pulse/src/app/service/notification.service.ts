@@ -6,7 +6,7 @@ import { Subject, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
-  private api = `https://ware-pulse-1fa9b002251d.herokuapp.com/api/notifications`;
+  private api = `https://web-production-956c.up.railway.app/api/notifications`;
   public notifications = signal<Notification[]>([]);
   private newNotificationSubject = new Subject<Notification>();
   public newNotification$ = this.newNotificationSubject.asObservable();
