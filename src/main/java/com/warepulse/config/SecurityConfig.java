@@ -64,15 +64,28 @@ public class SecurityConfig {
         return source;
     }
 
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.setAllowedOrigins(List.of("https://ware-pulse.netlify.app"));
+    config.setAllowedHeaders(List.of("*"));
+    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    
+    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+    bean.setOrder(Ordered.HIGHEST_PRECEDENCE); // importantissimo
+    return bean;
+}
 
 
    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-          .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            
+          .cors(Customizer.withDefaults())    
           .csrf(csrf -> csrf.disable())               
           .sessionManagement(sess -> 
                sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
