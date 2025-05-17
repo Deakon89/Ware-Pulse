@@ -11,7 +11,7 @@ export interface RegisterPayload {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'https://web-production-956c.up.railway.app/api/auth';
+  private apiUrl = 'https://ware-pulse.up.railway.app/api/auth';
 
   constructor(private http: HttpClient) {}
 

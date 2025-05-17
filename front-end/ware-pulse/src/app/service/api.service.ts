@@ -8,7 +8,7 @@ import { Order } from './orders.service';
   providedIn: 'root'
 })
 export class ApiService {
-  private base = "https://web-production-956c.up.railway.app/api";
+  private base = "https://ware-pulse.up.railway.app/api";
 
   constructor(private http: HttpClient) {}
 
