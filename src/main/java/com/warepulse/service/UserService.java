@@ -1,4 +1,3 @@
-// src/main/java/com/warepulse/service/UserService.java
 package com.warepulse.service;
 
 import java.util.List;

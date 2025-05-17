@@ -1,4 +1,3 @@
-// src/main/java/com/warepulse/controller/AuthController.java
 package com.warepulse.controller;
 
 import org.springframework.security.authentication.*;

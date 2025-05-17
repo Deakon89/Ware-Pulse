@@ -1,4 +1,3 @@
-// src/main/java/com/warepulse/controller/CompletedOrderController.java
 package com.warepulse.controller;
 
 import com.warepulse.model.CompletedOrder;

@@ -1,4 +1,3 @@
-// src/main/java/com/warepulse/service/ProductService.java
 package com.warepulse.service;
 
 import com.warepulse.model.Notification;

@@ -1,4 +1,3 @@
-// src/main/java/com/warepulse/controller/DashboardController.java
 package com.warepulse.controller;
 
 import com.warepulse.model.User;
