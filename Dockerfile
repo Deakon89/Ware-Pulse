@@ -4,6 +4,10 @@ WORKDIR /app
 COPY pom.xml mvnw ./
 COPY .mvn ./.mvn
 COPY src ./src
+
+# Rendi eseguibile lo wrapper Maven
+RUN chmod +x mvnw
+
 # Build senza test per velocizzare (ma puoi rimuovere -DskipTests)
 RUN ./mvnw clean package -DskipTests
 
