@@ -64,21 +64,21 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
-    CorsConfiguration config = new CorsConfiguration();
-    config.setAllowCredentials(true);
-    config.setAllowedOrigins(List.of("https://ware-pulse.netlify.app"));
-    config.setAllowedHeaders(List.of("*"));
-    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//     @Bean
+//     public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
+//     CorsConfiguration config = new CorsConfiguration();
+//     config.setAllowCredentials(true);
+//     config.setAllowedOrigins(List.of("https://ware-pulse.netlify.app"));
+//     config.setAllowedHeaders(List.of("*"));
+//     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", config);
+//     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//     source.registerCorsConfiguration("/**", config);
     
-    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-    bean.setOrder(Ordered.HIGHEST_PRECEDENCE); // importantissimo
-    return bean;
-}
+//     FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+//     bean.setOrder(Ordered.HIGHEST_PRECEDENCE); // importantissimo
+//     return bean;
+// }
 
 
    
