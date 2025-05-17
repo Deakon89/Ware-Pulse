@@ -1,5 +1,5 @@
-// // src/main/java/com/warepulse/config/WebConfig.java
-package com.warepulse.config;
+// // src/main/java/com/warepulse/config/////WebConfig.java
+//package com.warepulse.config;
 
 
 import org.springframework.context.annotation.Configuration;
@@ -17,5 +17,5 @@ public class WebConfig implements WebMvcConfigurer {
             .allowedHeaders("*")
             .allowCredentials(true);
   }
-}
+}//
 
