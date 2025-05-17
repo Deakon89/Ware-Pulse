@@ -40,7 +40,7 @@ public class AuthController {
     this.userRepo    = ur;
     
   }
-  @CrossOrigin(origins = "https://ware-pulse.netlify.app", allowCredentials = "true")
+  
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody Map<String,String> b) {
     User user  = userService.register(
