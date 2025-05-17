@@ -16,7 +16,6 @@ com\warepulse\controller\AuthController.class
 com\warepulse\model\CompletedOrder.class
 com\warepulse\model\OrderStatus.class
 com\warepulse\controller\OrderController.class
-com\warepulse\config\WebConfig.class
 com\warepulse\controller\DashboardController.class
 com\warepulse\repository\ComplOrderRepo.class
 com\warepulse\repository\NotificationRepo.class
