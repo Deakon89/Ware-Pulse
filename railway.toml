@@ -1,0 +1,9 @@
+# railway.toml
+
+[build]
+# comando per compilare il tuo progetto Spring Boot
+command = "mvnw clean package"
+
+[deploy]
+# comando per avviare il jar prodotto
+startCommand = "java -jar target/ware-pulse-0.0.1-SNAPSHOT.jar"
