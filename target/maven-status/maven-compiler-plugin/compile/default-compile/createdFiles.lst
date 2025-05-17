@@ -4,7 +4,6 @@ com\warepulse\model\Order.class
 com\warepulse\security\JwtFilter.class
 com\warepulse\security\CustomUserDetailService.class
 com\warepulse\config\WebSocketConfig.class
-com\warepulse\ware_pulse\WarePulseApplication.class
 com\warepulse\model\Product.class
 com\warepulse\service\CompletedOrderService.class
 com\warepulse\service\ProductService.class
@@ -18,6 +17,7 @@ com\warepulse\model\OrderStatus.class
 com\warepulse\controller\OrderController.class
 com\warepulse\controller\DashboardController.class
 com\warepulse\repository\ComplOrderRepo.class
+com\warepulse\WarePulseApplication.class
 com\warepulse\repository\NotificationRepo.class
 com\warepulse\config\PasswordConfig.class
 com\warepulse\controller\CompletedOrderController.class
