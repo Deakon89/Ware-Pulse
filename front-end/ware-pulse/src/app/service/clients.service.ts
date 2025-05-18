@@ -6,7 +6,7 @@ import { Client }         from '../model/clientMod';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
-  private readonly url = '/api/dashboard/clients';
+  private readonly url = 'https://ware-pulse.up.railway.app/api/dashboard/clients';
 
   constructor(private http: HttpClient) {}
 
