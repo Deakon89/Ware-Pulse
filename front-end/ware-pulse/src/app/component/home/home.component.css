@@ -96,7 +96,7 @@ h1 {
 
 em {
   animation: pulseTitle 1.5s infinite;
-  text-emphasis: none;
+  font-style: normal;
 }
 
 @keyframes pulse {
