@@ -1,6 +1,6 @@
 # WarePulse
 
-[Urban-Tribe](https://ware-pulse.netlify.app/)
+[Ware-Pulse](https://ware-pulse.netlify.app/)
 
 **Warehouse Management Application** per piccoli commercianti.
 
