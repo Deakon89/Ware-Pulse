@@ -23,10 +23,10 @@ import {trigger, transition, style, animate, query, group} from '@angular/animat
         // anima contemporaneamente
         group([
           query(':leave', [
-            animate('300ms ease', style({ opacity: 0 }))
+            animate('3000ms ease', style({ opacity: 0 }))
           ], { optional: true }),
           query(':enter', [
-            animate('300ms ease', style({ opacity: 1 }))
+            animate('3000ms ease', style({ opacity: 1 }))
           ], { optional: true })
         ])
       ])
