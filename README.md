@@ -1,5 +1,9 @@
 # WarePulse
+---
 
+![home](/screenReadme/home.png) 
+
+---
 [Ware-Pulse](https://ware-pulse.netlify.app/)
 
 **Warehouse Management Application** per piccoli commercianti.
@@ -10,17 +14,23 @@
 
 App full-stack composta da:
 
-* **Back-end**: Spring Boot (Java 21)
+* **Back-end**: Spring Boot (Java 17)
 * **Front-end**: Angular 19 + Angular Material
 
 L’obiettivo è fornire un sistema di gestione magazzino:
 
+![login](/screenReadme/login.png) 
+
 * **Prodotti**: lista, creazione, modifica, cancellazione
-* **Clienti**: lista, CRUD
-* **Ordini da evadere**: invio, completamento
+* **Clienti**: creazione, lista
+* **Ordini da evadere**: creazione, completamento
 * **Ordini evasi**: storico ordini completati
 * **Autenticazione**: registrazione, login JWT, profilo utente
 * **Notifiche**: stream SSE/WebSocket per aggiornamenti in tempo reale
+
+---
+
+![dashboard](/screenReadme/dash.png) 
 
 ---
 
@@ -28,7 +38,7 @@ L’obiettivo è fornire un sistema di gestione magazzino:
 
 ### Back-end (WarePulse API)
 
-* **Java 21**
+* **Java 17**
 * **Spring Boot 3.4.x**
 * Spring Security 6
 * Spring Data JPA
@@ -38,7 +48,6 @@ L’obiettivo è fornire un sistema di gestione magazzino:
 
 ### Front-end (Dashboard Angular)
 
-* **Node.js** >= 18
 * **Angular CLI** 19.x
 * @angular/core, @angular/router, @angular/common
 * @angular/material
@@ -59,7 +68,7 @@ cd Ware-Pulse
 ### 2. Back-end
 
 ```bash
-cd back-end/ware-pulse
+cd back-end
 # configurare src/main/resources/application.properties:
 # spring.datasource.url=jdbc:mysql://localhost:3306/warepulse
 # spring.datasource.username=utente_db
@@ -85,19 +94,19 @@ L’app Angular verrà avviata su `http://localhost:4200` e comunicherà con l�
 
 ## 🚀 Utilizzo
 
-1. **Registrazione**: POST `/api/auth/register`
-2. **Login**: POST `/api/auth/login` → ricevuta token JWT
-3. **Profilo**: GET `/api/auth/me` (header `Authorization: Bearer <jwt>`)
+1. **Registrazione**: POST `/auth/register`
+2. **Login**: POST `/auth/login` → ricevuta token JWT
+3. **Profilo**: GET `/auth/me` (header `Authorization: Bearer <jwt>`)
 4. **Dashboard** Angular:
 
-   * Sidenav laterale per navigare tra Prodotti, Clienti, Ordini, Ordini Evasi
+   * NavBar per navigare tra Prodotti, Clienti, Ordini, Ordini Evasi
    * Tabelle dinamiche con servizi Angular (HttpClient)
-5. **CRUD** Prodotti & Clienti: chiamate a `/api/products`, `/api/clients`
+5. **CRUD** Prodotti & Clienti: chiamate a `/dashboard/products`, `dashboard/clients`
 6. **Gestione Ordini**:
 
    * Creazione ordine (status: `PENDING`)
-   * Completamento ordine → spostato in `/api/completed-orders`
-7. **Notifiche**: stream SSE `/api/notifications/stream`
+   * Completamento ordine → spostato in `/dashboard/completed-orders`
+7. **Notifiche**: stream SSE `/notifications/stream`
 
 ---
 
