@@ -1,12 +1,12 @@
 
 <mat-card class="clients-card">
   <mat-card-header>
-    <mat-card-title>Clienti</mat-card-title>
+    <mat-card-title>Clients</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form (ngSubmit)="createClient()" class="create-form">
       <mat-form-field appearance="fill" class="flex-grow">
-        <mat-label>Nome attività</mat-label>
+        <mat-label>Client Name</mat-label>
         <input matInput [(ngModel)]="newClientName" name="nomeAttività" required />
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">
