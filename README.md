@@ -94,19 +94,16 @@ L’app Angular verrà avviata su `http://localhost:4200` e comunicherà con l�
 
 ## 🚀 Utilizzo
 
-1. **Registrazione**: POST `/auth/register`
-2. **Login**: POST `/auth/login` → ricevuta token JWT
-3. **Profilo**: GET `/auth/me` (header `Authorization: Bearer <jwt>`)
-4. **Dashboard** Angular:
-
+1. **Registrazione**: tramite button sign-in possiamo registrarci a Ware-Pulse.
+2. **Login**:  riceviamo un token JWT per entrare nel nostro profilo.
+3. **Profilo**: qui abbiamo accesso ai dati e possiamo navigare fino alla dashboard.
+4. **Dashboard**: 
    * NavBar per navigare tra Prodotti, Clienti, Ordini, Ordini Evasi
-   * Tabelle dinamiche con servizi Angular (HttpClient)
-5. **CRUD** Prodotti & Clienti: chiamate a `/dashboard/products`, `dashboard/clients`
-6. **Gestione Ordini**:
-
-   * Creazione ordine (status: `PENDING`)
-   * Completamento ordine → spostato in `/dashboard/completed-orders`
-7. **Notifiche**: stream SSE `/notifications/stream`
+   * Creazione, modifica e cancellazione prodotto
+   * Creazione o cancellazione Cliente
+   * Creazione o cancellazione ordine (status: `non evaso`)
+   * Completamento ordine → spostato in Ordini evasi.
+5. **Notifiche**: stream SSE `/notifications/stream`
 
 ---
 
@@ -114,7 +111,7 @@ L’app Angular verrà avviata su `http://localhost:4200` e comunicherà con l�
 
 * **CORS**: abilitato in `SecurityConfig` per `http://localhost:4200`
 * **JWT**: timeout e secret configurabili in `application.properties`
-* **Database**: aggiornare URL, credenziali
+* **Database**: mySQL
 
 ---
 
