@@ -33,4 +33,5 @@ build/
 .vscode/
 
 ### secret ###
-/config/application.secret.properties
+
+back-end\src\main\java\com\warepulse\config\application.secret.properties
