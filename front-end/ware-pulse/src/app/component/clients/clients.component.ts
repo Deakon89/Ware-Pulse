@@ -28,7 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   newClientName = '';
-  srv = inject(ClientService);
+  
 
   constructor(private clientsService: ClientService) {}
 
@@ -37,7 +37,7 @@ export class ClientsComponent implements OnInit {
   }
 
   load() {
-    this.srv.getAll().subscribe(cl => this.clients = cl);
+    this.clientsService.getAll().subscribe(cl => this.clients = cl);
   }
 
   createClient() {
@@ -51,7 +51,7 @@ export class ClientsComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.srv.delete(id).subscribe(() => this.load());
+    this.clientsService.delete(id).subscribe(() => this.load());
   }
 }
 
